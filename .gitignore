@@ -1,0 +1,11 @@
+.DS_Store
+.agents/
+.augment/
+.claude/
+.codebuddy/
+.workbuddy/
+generated-images/
+screenshots/
+skills/
+skills-lock.json
+cover_design/

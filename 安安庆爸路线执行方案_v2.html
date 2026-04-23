@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>安安（Leo）庆爸路线执行方案</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --c-brand:#6366F1;--c-brand-light:#818CF8;--c-brand-dark:#4F46E5;
+  --c-emerald:#10B981;--c-amber:#F59E0B;--c-rose:#F43F5E;--c-sky:#0EA5E9;--c-violet:#8B5CF6;
+  --c-bg:#F8FAFC;--c-surface:#FFFFFF;--c-text:#0F172A;--c-text2:#475569;--c-text3:#94A3B8;
+  --c-border:#E2E8F0;--c-border2:#CBD5E1;
+  --r-sm:8px;--r-md:14px;--r-lg:20px;--r-xl:28px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04);--shadow-md:0 4px 12px rgba(0,0,0,.06);--shadow-lg:0 12px 32px rgba(0,0,0,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter','Noto Sans SC',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--c-bg);color:var(--c-text);line-height:1.75;-webkit-font-smoothing:antialiased}
+
+/* ===== HERO ===== */
+.hero{position:relative;overflow:hidden;padding:64px 24px 48px;text-align:center;color:#fff}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#4F46E5 0%,#7C3AED 40%,#EC4899 100%);z-index:0}
+.hero::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");z-index:0}
+.hero>*{position:relative;z-index:1}
+.hero h1{font-size:clamp(26px,4vw,36px);font-weight:800;letter-spacing:-.02em;margin-bottom:16px;text-shadow:0 2px 8px rgba(0,0,0,.15)}
+.hero .subtitle{font-size:15px;opacity:.85;margin-bottom:20px;max-width:480px;margin-left:auto;margin-right:auto}
+.tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.tag{background:rgba(255,255,255,.18);backdrop-filter:blur(8px);padding:6px 14px;border-radius:24px;font-size:13px;font-weight:500;border:1px solid rgba(255,255,255,.15)}
+
+/* ===== NAV ===== */
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--c-border);padding:0 16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.nav-inner{display:flex;gap:4px;max-width:960px;margin:0 auto;padding:8px 0}
+.nav a{flex-shrink:0;padding:8px 16px;border-radius:var(--r-sm);font-size:13px;font-weight:600;color:var(--c-text2);text-decoration:none;transition:all .2s;white-space:nowrap}
+.nav a:hover,.nav a.active{background:var(--c-brand);color:#fff}
+
+/* ===== LAYOUT ===== */
+.wrap{max-width:960px;margin:0 auto;padding:0 20px 80px}
+section{margin-top:48px}
+.sec-header{margin-bottom:24px}
+.sec-header h2{font-size:clamp(20px,3vw,26px);font-weight:800;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.sec-header h2 .icon{width:36px;height:36px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.sec-header p{color:var(--c-text2);font-size:14px;margin-top:4px;padding-left:46px}
+
+/* ===== CARD ===== */
+.card{background:var(--c-surface);border-radius:var(--r-lg);box-shadow:var(--shadow-md);padding:24px;margin-bottom:20px;border:1px solid var(--c-border);transition:box-shadow .2s}
+.card:hover{box-shadow:var(--shadow-lg)}
+.card-title{font-size:16px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.card-title .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* ===== TABLE ===== */
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;margin:4px 0}
+thead th{background:linear-gradient(180deg,#F8FAFC,#F1F5F9);font-weight:600;text-align:left;padding:12px 14px;border-bottom:2px solid var(--c-border);font-size:13px;color:var(--c-text2);text-transform:uppercase;letter-spacing:.03em}
+tbody td{padding:12px 14px;border-bottom:1px solid var(--c-border);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#F8FAFC}
+
+/* ===== BADGES ===== */
+.b{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600;white-space:nowrap}
+.b-ok{background:#DCFCE7;color:#166534}
+.b-warn{background:#FEF9C3;color:#854D0E}
+.b-info{background:#DBEAFE;color:#1E40AF}
+.b-pen{background:#F3E8FF;color:#6B21A8}
+.b-rose{background:#FFE4E6;color:#9F1239}
+
+/* ===== PROGRESS ===== */
+.progress{background:#E2E8F0;border-radius:12px;height:32px;overflow:hidden;position:relative;margin:10px 0}
+.progress-fill{height:100%;border-radius:12px;display:flex;align-items:center;padding:0 14px;font-size:13px;font-weight:700;color:#fff;background:linear-gradient(90deg,#10B981,#34D399);transition:width .6s ease}
+.progress-marker{position:absolute;right:0;top:0;height:100%;display:flex;align-items:center;padding-right:12px;font-size:12px;color:var(--c-text3);font-weight:500}
+
+/* ===== CALLOUT ===== */
+.callout{border-radius:var(--r-md);padding:18px 22px;margin:14px 0;font-size:14px;line-height:1.7;border-left:4px solid}
+.callout-purple{background:linear-gradient(135deg,#EEF2FF,#E0E7FF);border-color:#818CF8}
+.callout-green{background:linear-gradient(135deg,#ECFDF5,#D1FAE5);border-color:#34D399}
+.callout-amber{background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border-color:#FBBF24}
+.callout-rose{background:linear-gradient(135deg,#FFF1F2,#FFE4E6);border-color:#FB7185}
+.callout strong{display:block;margin-bottom:4px}
+
+/* ===== TIMELINE ===== */
+.tl{position:relative;padding-left:36px;margin:8px 0 0}
+.tl::before{content:'';position:absolute;left:14px;top:0;bottom:0;width:4px;border-radius:4px;background:linear-gradient(180deg,var(--c-brand),var(--c-violet),var(--c-emerald),var(--c-amber))}
+.tl-node{position:relative;margin-bottom:28px}
+.tl-node::before{content:'';position:absolute;left:-28px;top:4px;width:18px;height:18px;border-radius:50%;border:4px solid var(--c-brand);background:#fff;transition:all .2s}
+.tl-node.now::before{background:var(--c-brand);box-shadow:0 0 0 6px rgba(99,102,241,.2)}
+.tl-node.now .tl-label{color:var(--c-brand)}
+.tl-label{font-size:14px;font-weight:700;color:var(--c-text2)}
+.tl-sub{font-size:12px;color:var(--c-text3);margin-top:2px}
+
+/* ===== DAILY SCHEDULE ===== */
+.sched{display:flex;flex-direction:column;gap:2px}
+.sched-row{display:grid;grid-template-columns:86px 1fr 56px;gap:10px;align-items:center;padding:12px 14px;border-radius:var(--r-sm);font-size:14px;transition:background .15s}
+.sched-row:nth-child(odd){background:#F8FAFC}
+.sched-row:hover{background:#F1F5F9}
+.sched-time{font-weight:700;color:var(--c-brand);font-size:13px}
+.sched-dur{color:var(--c-text3);font-size:12px;text-align:right;font-weight:500}
+
+/* ===== ANIM LAYERS ===== */
+.layers{display:flex;flex-direction:column;gap:4px}
+.layer-row{display:grid;grid-template-columns:48px 1fr auto auto;gap:10px;align-items:center;padding:12px;border-radius:var(--r-sm);transition:background .15s;font-size:14px}
+.layer-row:hover{background:#F8FAFC}
+.layer-tag{font-weight:800;font-size:14px}
+
+/* ===== SHOP LIST ===== */
+.shop{display:flex;flex-direction:column;gap:2px}
+.shop-row{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-radius:var(--r-sm);transition:background .15s}
+.shop-row:nth-child(odd){background:#F8FAFC}
+.shop-row:hover{background:#EEF2FF}
+.shop-name{font-weight:600;font-size:14px}
+.shop-price{color:var(--c-text3);font-size:13px;font-weight:500;display:flex;align-items:center;gap:6px}
+.shop-total{text-align:right;font-weight:800;color:var(--c-brand);font-size:15px;padding:12px 14px 0}
+
+/* ===== STEPS ===== */
+.steps{display:grid;gap:14px}
+.step{display:flex;gap:16px;padding:20px;border-radius:var(--r-md);background:linear-gradient(135deg,#EEF2FF,#F5F3FF);border:1px solid #E0E7FF;transition:transform .15s,box-shadow .15s}
+.step:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.step-n{width:40px;height:40px;border-radius:50%;background:var(--c-brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0;box-shadow:0 4px 12px rgba(99,102,241,.3)}
+.step-body strong{display:block;font-size:15px;margin-bottom:4px}
+.step-body span{font-size:13px;color:var(--c-text2)}
+
+/* ===== BANNER ===== */
+.banner{text-align:center;padding:28px;border-radius:var(--r-lg);margin-top:24px;font-size:17px;font-weight:700;line-height:1.8}
+.banner-green{background:linear-gradient(135deg,#ECFDF5,#D1FAE5);border:2px solid #A7F3D0;color:#065F46}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:640px){
+  .hero{padding:48px 16px 36px}
+  .wrap{padding:0 12px 60px}
+  section{margin-top:36px}
+  .card{padding:18px}
+  table{font-size:13px}
+  thead th,tbody td{padding:10px}
+  .sched-row{grid-template-columns:72px 1fr 48px}
+  .layer-row{grid-template-columns:40px 1fr auto}
+  .layer-row>:nth-child(4){display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>安安的英语启蒙路线图</h1>
+  <p class="subtitle">基于庆爸常规路线+大循环方法，结合安安现状定制</p>
+  <div class="tags">
+    <span class="tag">👶 3岁4个月</span>
+    <span class="tag">📝 200词汇</span>
+    <span class="tag">🔤 26字母</span>
+    <span class="tag">🐛 毛毛虫</span>
+    <span class="tag">🐸 小蝌蚪</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="nav-inner">
+    <a href="#status" class="active">现状</a>
+    <a href="#ort">牛津树</a>
+    <a href="#anime">动画</a>
+    <a href="#plan">执行方案</a>
+    <a href="#timeline">时间线</a>
+    <a href="#roles">分工</a>
+    <a href="#action">立即行动</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ====== 1. 现状 ====== -->
+<section id="status">
+  <div class="sec-header">
+    <h2><span class="icon" style="background:#EEF2FF;color:var(--c-brand)">📊</span>安安在庆爸体系的位置</h2>
+    <p>阶段一素材已覆盖70%+，你之前做的完全对路</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--c-emerald)"></span>已完成的阶段一素材</div>
+    <table>
+      <thead><tr><th>项目</th><th>状态</th><th>备注</th></tr></thead>
+      <tbody>
+        <tr><td>古力小超人1-2</td><td><span class="b b-ok">✅ 已完成</span></td><td>庆爸阶段一核心素材</td></tr>
+        <tr><td>Q play 奇问妙想国</td><td><span class="b b-ok">✅ 多遍</span></td><td>庆爸阶段一核心素材</td></tr>
+        <tr><td>W play 词汇妙趣国</td><td><span class="b b-ok">✅ 多遍</span></td><td>庆爸阶段一核心素材</td></tr>
+        <tr><td>Fluppy Cat / Pig and Elephant</td><td><span class="b b-ok">✅ 已读</span></td><td>故事性绘本基础</td></tr>
+        <tr><td>26个字母</td><td><span class="b b-ok">✅ 已掌握</span></td><td>超前于庆爸体系要求</td></tr>
+        <tr><td>海尼曼GK</td><td><span class="b b-warn">⚠️ 读了一半</span></td><td>兴趣不大 → 降为辅助</td></tr>
+        <tr><td>FLR A → B</td><td><span class="b b-ok">✅ 感兴趣</span></td><td>继续作为轻松练习线</td></tr>
+        <tr><td>听力词汇</td><td><span class="b b-info">约200个</span></td><td>颜色/数字/动物/车/文具</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--c-emerald)"></span>阶段一进度</div>
+    <div class="progress">
+      <div class="progress-fill" style="width:70%">70%</div>
+      <span class="progress-marker">← 安安在这里</span>
+    </div>
+    <div class="callout callout-amber" style="margin-top:12px">
+      <strong>核心缺口</strong>
+      ① 动画需要分层管理（不是缺动画，是缺引导策略）<br>
+      ② 牛津树还没开始（阶段二核心素材）<br>
+      ③ 200 → 300词的最后冲刺
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--c-sky)"></span>动画输入现状</div>
+    <table>
+      <thead><tr><th>动画</th><th>状态</th><th>分析</th></tr></thead>
+      <tbody>
+        <tr><td>迪士尼美语</td><td><span class="b b-ok">✅ 在看</span></td><td>有体系输入，偏被动</td></tr>
+        <tr><td>Little Fox</td><td><span class="b b-warn">⚠️ 不太喜欢</span></td><td>级别可能选高了，降到 Level 1 试</td></tr>
+        <tr><td>Wow English</td><td><span class="b b-ok">✅ 在看</span></td><td>庆爸推荐 TPR 教学法</td></tr>
+        <tr><td>动物世界大冒险</td><td><span class="b b-ok">✅ 在看</span></td><td>结合动物兴趣</td></tr>
+        <tr><td>Maisy动画</td><td><span class="b b-info">有资源未开启</span></td><td>📌 现在可以开了！</td></tr>
+        <tr><td>蓝色小考拉</td><td><span class="b b-info">有资源未开启</span></td><td>📌 试试看，画面辅助强</td></tr>
+      </tbody>
+    </table>
+    <div class="callout callout-amber" style="margin-top:12px">
+      <strong>修正判断</strong>动画不是缺失，而是缺少分层管理。每天1小时量够了，但"想看什么看什么"缺少从易到难的引导。
+    </div>
+  </div>
+</section>
+
+<!-- ====== 2. 牛津树 ====== -->
+<section id="ort">
+  <div class="sec-header">
+    <h2><span class="icon" style="background:#FEF3C7;color:#B45309">🌳</span>牛津树购买指南</h2>
+    <p>推荐版本：校园版 · 彩虹花 Plus</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--c-amber)"></span>为什么选彩虹花Plus</div>
+    <table>
+      <thead><tr><th>维度</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>点读笔兼容</td><td>✅ 小蝌蚪 🐸 + 小达人 + 毛毛虫 🐛（1-2阶）</td></tr>
+        <tr><td>内容</td><td>校园版完整内容 · 150本（L1-L2）</td></tr>
+        <tr><td>音频</td><td>英音/美音双切换 · 点页码有中文翻译</td></tr>
+        <tr><td>音效</td><td>点图片有音效 · 互动性强</td></tr>
+        <tr><td>性价比</td><td>祖国版中品质最好的一版</td></tr>
+      </tbody>
+    </table>
+    <div class="callout callout-purple" style="margin-top:14px">
+      <strong>🔍 搜索关键词</strong>
+      「牛津树 校园版 彩虹花plus 1-2阶 150册 小蝌蚪点读」<br><br>
+      <strong>📦 参考价</strong> 淘宝 100-150元 · 京东 120-160元 · 拼多多 80-120元<br><br>
+      <strong>⚠️ 注意</strong> 确认是「彩虹花Plus」或「S版」· 确认支持小蝌蚪/小彼恩 · 收到闻一下有刺鼻味退货
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--c-brand)"></span>150本怎么读</div>
+    <table>
+      <thead><tr><th>阶段</th><th>本数</th><th>内容</th><th>安安怎么读</th></tr></thead>
+      <tbody>
+        <tr><td>L1 无字书</td><td>12本</td><td>纯看图</td><td>跳过或快速过</td></tr>
+        <tr><td><strong>L1 有字书</strong></td><td>48本</td><td>每页1-2句</td><td><span class="b b-ok">从这里开始！</span> 每天2-3本</td></tr>
+        <tr><td>L1+ 故事</td><td>36本</td><td>句子稍长</td><td>L1读顺后进入</td></tr>
+        <tr><td>L2</td><td>54本</td><td>完整小故事</td><td>目标3个月后读到</td></tr>
+        <tr><td>自然拼读</td><td>穿插</td><td>Floppy's Phonics</td><td>半年后启动</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ====== 3. 动画 ====== -->
+<section id="anime">
+  <div class="sec-header">
+    <h2><span class="icon" style="background:#DBEAFE;color:#1D4ED8">📺</span>动画分层方案</h2>
+    <p>庆爸核心原则：不理解的输入 = 无效噪音</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--c-sky)"></span>5层动画策略</div>
+    <div class="layers">
+      <div class="layer-row"><span class="layer-tag" style="color:#10B981">A层</span><span>Wow English · Yakka Dee</span><span class="b b-ok">能懂80%+</span><span>主力输入</span></div>
+      <div class="layer-row"><span class="layer-tag" style="color:#3B82F6">B层</span><span>动物世界大冒险 · 迪士尼美语</span><span class="b b-info">能懂50-70%</span><span>继续看</span></div>
+      <div class="layer-row"><span class="layer-tag" style="color:#F59E0B">C层</span><span>Maisy动画 · 蓝色小考拉</span><span class="b b-warn">能懂30-50%</span><span>📌 现在开启</span></div>
+      <div class="layer-row"><span class="layer-tag" style="color:#EF4444">D层</span><span>Little Fox（降到 Level 1）</span><span class="b b-rose">能懂&lt;30%</span><span>降级重试</span></div>
+      <div class="layer-row"><span class="layer-tag" style="color:#8B5CF6">E层</span><span>Blippi（交通工具集）</span><span class="b b-pen">纯兴趣</span><span>周末放</span></div>
+    </div>
+    <div class="callout callout-green" style="margin-top:16px">
+      <strong>📺 每天1小时，有结构</strong>
+      前15分钟 → A层（Wow English 2-3集）→ 学习型输入<br>
+      中间30分钟 → B/C层（安安自选）→ 浸泡型输入<br>
+      最后15分钟 → 自由选择 → 保护兴趣
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--c-amber)"></span>Maisy和蓝色小考拉能看懂吗？</div>
+    <table>
+      <thead><tr><th>动画</th><th>每集</th><th>词汇要求</th><th>安安200词</th></tr></thead>
+      <tbody>
+        <tr><td>Maisy</td><td>5分钟</td><td>100-200词</td><td><span class="b b-ok">✅ 基本可以</span></td></tr>
+        <tr><td>蓝色小考拉</td><td>5分钟</td><td>150-250词</td><td><span class="b b-warn">⚠️ 边缘可试</span></td></tr>
+      </tbody>
+    </table>
+    <div class="callout callout-amber" style="margin-top:10px">
+      这周就放1集Maisy试试 → 能跟着笑、能指认画面 = 能看懂
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--c-rose)"></span>Little Fox 为什么不喜欢</div>
+    <p style="font-size:14px;margin-bottom:10px;color:var(--c-text2)">大概率是<strong>级别选高了</strong>，降到 Level 1 试试：</p>
+    <table>
+      <thead><tr><th>级别</th><th>适合词汇量</th><th>安安适合吗</th></tr></thead>
+      <tbody>
+        <tr><td>Level 1</td><td>100-300词</td><td><span class="b b-ok">✅ 试这个</span></td></tr>
+        <tr><td>Level 2</td><td>300-600词</td><td>3个月后</td></tr>
+        <tr><td>Level 3+</td><td>600词+</td><td>半年后</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ====== 4. 分阶段执行 ====== -->
+<section id="plan">
+  <div class="sec-header">
+    <h2><span class="icon" style="background:#ECFDF5;color:#059669">🗺️</span>分阶段执行方案</h2>
+    <p>安安3岁4个月，距大循环启动（4.5岁）约14个月</p>
+  </div>
+
+  <!-- 阶段A -->
+  <div class="tl">
+    <div class="tl-node now">
+      <div class="tl-label">📍 阶段A：补缺口+过渡（现在 → 第2个月）</div>
+      <div class="tl-sub">安安 3岁4个月 · 目标词汇 200 → 350</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--c-brand)"></span>每日时间表</div>
+    <div class="sched">
+      <div class="sched-row"><span class="sched-time">🌅 早餐</span><span>牛津树 L1 音频当背景播</span><span class="sched-dur">10min</span></div>
+      <div class="sched-row"><span class="sched-time">☀️ 碎片</span><span>SSS 儿歌 / 迪士尼英语音频</span><span class="sched-dur">随时</span></div>
+      <div class="sched-row"><span class="sched-time">📺 动画</span><span>A层15min + B/C层30min + 自由15min</span><span class="sched-dur">60min</span></div>
+      <div class="sched-row"><span class="sched-time">🌙 亲子</span><span>爸爸带读牛津树 L1（2本）+ FLR B-C（2本）</span><span class="sched-dur">20min</span></div>
+      <div class="sched-row"><span class="sched-time">😴 睡前</span><span>点读笔自主翻书 / 爸爸讲故事绘本</span><span class="sched-dur">10min</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--c-emerald)"></span>分级阅读</div>
+    <table>
+      <thead><tr><th>线路</th><th>素材</th><th>操作</th></tr></thead>
+      <tbody>
+        <tr><td><span class="b b-ok">主线</span></td><td><strong>牛津树 L1 有字书</strong></td><td>每天2本新+2本复习，爸爸指图讲</td></tr>
+        <tr><td><span class="b b-info">辅线</span></td><td><strong>FLR B → C</strong></td><td>每天1-2本，保持手感</td></tr>
+        <tr><td><span class="b b-warn">降权</span></td><td>海尼曼GK</td><td>每周挑3本动物/车主题</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--c-violet)"></span>故事绘本（不低幼）</div>
+    <table>
+      <thead><tr><th>绘本</th><th>点读</th><th>为什么选</th></tr></thead>
+      <tbody>
+        <tr><td>Pete the Cat（I Can Read，4-6册）</td><td><span class="b b-pen">🐛</span></td><td>有情节有态度，不低幼</td></tr>
+        <tr><td>Biscuit（My First I Can Read，6册）</td><td><span class="b b-pen">🐸</span></td><td>故事性比FLR更强</td></tr>
+        <tr><td>Little Blue Truck</td><td>—</td><td>卡车+动物+故事三合一</td></tr>
+        <tr><td>Elephant and Piggie 扩展册</td><td><span class="b b-pen">🐸</span></td><td>安安已有基础</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--c-amber)"></span>💰 本阶段购书</div>
+    <div class="shop">
+      <div class="shop-row"><span class="shop-name">牛津树彩虹花Plus L1-L2（150本）</span><span class="shop-price">100-150元 <span class="b b-pen">🐸🐛</span></span></div>
+      <div class="shop-row"><span class="shop-name">FLR C</span><span class="shop-price">40-60元 <span class="b b-pen">🐸</span></span></div>
+      <div class="shop-row"><span class="shop-name">Pete the Cat I Can Read（6册）</span><span class="shop-price">50-80元 <span class="b b-pen">🐛</span></span></div>
+      <div class="shop-row"><span class="shop-name">Biscuit My First I Can Read（6册）</span><span class="shop-price">50-70元 <span class="b b-pen">🐸</span></span></div>
+      <div class="shop-row"><span class="shop-name">Little Blue Truck</span><span class="shop-price">25-35元</span></div>
+    </div>
+    <div class="shop-total">预算：约 265 - 395 元</div>
+  </div>
+
+  <!-- 阶段B -->
+  <div class="tl" style="margin-top:28px">
+    <div class="tl-node">
+      <div class="tl-label">阶段B：正式阶段二（第2-5个月）</div>
+      <div class="tl-sub">安安 3岁半 · 目标词汇 350 → 600</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--c-emerald)"></span>分级 + 故事 + 汽车 + 科普</div>
+    <table>
+      <thead><tr><th>绘本</th><th>点读</th><th>类型</th></tr></thead>
+      <tbody>
+        <tr><td><strong>牛津树 L1+ → L2</strong></td><td><span class="b b-pen">🐸🐛</span></td><td>主线分级</td></tr>
+        <tr><td><strong>FLR D + Buddy Readers</strong></td><td><span class="b b-pen">🐸</span></td><td>辅线分级</td></tr>
+        <tr><td>Elephant and Piggie（补齐25册）</td><td><span class="b b-pen">🐸</span></td><td>故事 · 对话幽默</td></tr>
+        <tr><td>Fly Guy 前5本</td><td><span class="b b-pen">🐸</span></td><td>桥梁书试水</td></tr>
+        <tr><td>Splat the Cat 啪嗒猫</td><td>—</td><td>故事 · 搞笑</td></tr>
+        <tr><td>恐龙工程车</td><td><span class="b b-pen">🐛</span></td><td>🚗 汽车主题</td></tr>
+        <tr><td>Car Car Truck Jeep</td><td><span class="b b-pen">🐛</span></td><td>🚗 童谣+车</td></tr>
+        <tr><td>Truck Town 汽车镇</td><td><span class="b b-pen">🐛</span></td><td>🚗 卡车角色</td></tr>
+        <tr><td>Pigeon 鸽子系列</td><td>—</td><td>故事 · 有态度</td></tr>
+        <tr><td>NGK: Trucks + Wild Animals</td><td>—</td><td>🔬 科普</td></tr>
+        <tr><td>Usborne Peep Inside: Things That Go</td><td>—</td><td>🔬 翻翻科普</td></tr>
+        <tr><td>My First Discoveries 交通工具</td><td><span class="b b-pen">🐛</span></td><td>🔬 胶片科普</td></tr>
+      </tbody>
+    </table>
+    <div class="shop-total">预算：约 400 - 600 元</div>
+  </div>
+
+  <!-- 阶段C -->
+  <div class="tl" style="margin-top:28px">
+    <div class="tl-node">
+      <div class="tl-label">阶段C：阶段三突破（第5-10个月）</div>
+      <div class="tl-sub">安安 3岁9个月 · 目标词汇 600 → 1000</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--c-sky)"></span>分级 + 动画 + 桥梁书 + 自然拼读</div>
+    <table>
+      <thead><tr><th>类别</th><th>素材</th></tr></thead>
+      <tbody>
+        <tr><td>分级主线</td><td>牛津树 Stage 3 → 4 + <strong>RAZ C-E 正式加入</strong></td></tr>
+        <tr><td>动画</td><td>Peppa Pig 全季 · Bluey · Little Fox L1-2 · Hey Duggee</td></tr>
+        <tr><td>桥梁书</td><td>Fly Guy 全20册 🐸 · Pete the Cat 进阶 · Frog and Toad · The Gruffalo 🐛 · Mercy Watson</td></tr>
+        <tr><td>自然拼读</td><td>Floppy's Phonics（已含） · Bob Books Set 1 · Alphablocks 动画</td></tr>
+      </tbody>
+    </table>
+    <div class="shop-total">预算：约 315 - 475 元</div>
+  </div>
+
+  <!-- 阶段D -->
+  <div class="tl" style="margin-top:28px">
+    <div class="tl-node">
+      <div class="tl-label">🔥 阶段D：大循环启动（第10个月+）</div>
+      <div class="tl-sub">安安 4岁2个月 · 目标词汇 1000 → 1500+</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--c-rose)"></span>启动条件</div>
+    <table>
+      <thead><tr><th>条件</th><th>要求</th><th>预计达到</th></tr></thead>
+      <tbody>
+        <tr><td>年龄</td><td>4.5岁+</td><td>约14个月后</td></tr>
+        <tr><td>听力词汇</td><td>1000+</td><td>常规路线推进可达</td></tr>
+        <tr><td>牛津树</td><td>Stage 3-4</td><td>阶段C目标</td></tr>
+        <tr><td>认知成熟度</td><td>能接受"读英文+解释"</td><td>4岁后</td></tr>
+      </tbody>
+    </table>
+    <div class="callout callout-purple" style="margin-top:14px">
+      <strong>大循环操作</strong>
+      爸爸每天1小时亲子共读牛津树<br>
+      ① 爸爸读英文（指图）→ ② 不懂处中文简单解释 → ③ 放音频安安自己翻 → ④ 次日先复习再新读<br><br>
+      <strong>"循环"含义</strong> 每读完一阶段 → 横向读同级别 RAZ/大猫/培生 → 读透再升级<br>
+      <strong>目标</strong> 6-12个月推到 Stage 6-7 → 开始裸听训练
+    </div>
+  </div>
+</section>
+
+<!-- ====== 5. 时间线 ====== -->
+<section id="timeline">
+  <div class="sec-header">
+    <h2><span class="icon" style="background:#FEF3C7;color:#B45309">📅</span>完整时间线</h2>
+  </div>
+  <div class="card" style="overflow-x:auto">
+    <table>
+      <thead><tr><th>时间</th><th>阶段</th><th>年龄</th><th>词汇</th><th>分级主线</th><th>动画</th><th>关键动作</th></tr></thead>
+      <tbody>
+        <tr style="background:#EEF2FF"><td><strong>现在</strong></td><td>A · 补缺口</td><td>3岁4月</td><td>200→350</td><td>牛津树L1 + FLR B-C</td><td>Wow English</td><td><strong>买牛津树！动画分层</strong></td></tr>
+        <tr><td>+2月</td><td>B · 阶段二</td><td>3岁半</td><td>350→600</td><td>牛津树L1+-L2 + FLR D</td><td>Peppa Pig</td><td>Buddy Readers + 科普</td></tr>
+        <tr><td>+5月</td><td>C · 阶段三</td><td>3岁9月</td><td>600→1000</td><td>牛津树L3-4 + RAZ C-E</td><td>Bluey + Little Fox</td><td>自然拼读 + 桥梁书</td></tr>
+        <tr><td>+10月</td><td>D · 大循环</td><td>4岁2月</td><td>1000→1500</td><td>牛津树L4-7</td><td>Little Fox 3-5</td><td><strong>爸爸1小时共读！</strong></td></tr>
+        <tr><td>+1.5年</td><td>自主阅读</td><td>4岁10月</td><td>1500+</td><td>牛津树L7+ + RAZ J+</td><td>科普纪录片</td><td>听力自由</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ====== 6. 分工 ====== -->
+<section id="roles">
+  <div class="sec-header">
+    <h2><span class="icon" style="background:#F3E8FF;color:#7C3AED">👨‍👩‍👦</span>爸爸妈妈分工</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--c-brand)"></span>👨 爸爸（核心执行者）</div>
+    <table>
+      <thead><tr><th>阶段</th><th>做什么</th><th>英语游戏</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td>每天带读牛津树2本+FLR 2本 · 指图+夸张表演</td><td>模仿 Steve 做 TPR</td></tr>
+        <tr><td>B</td><td>牛津树 L1+/L2 每天2本 · 简单指图解释</td><td>"我是 Kipper，你是 Floppy！"</td></tr>
+        <tr><td>C</td><td>牛津树 L3-4 · 开始用简单英文对话</td><td>看完 Peppa Pig 在家重演</td></tr>
+        <tr><td>D</td><td>大循环：每天1小时亲子共读</td><td>"What happens next?"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:var(--c-rose)"></span>👩 妈妈（后勤+运营）</div>
+    <table>
+      <thead><tr><th>任务</th><th>操作</th><th>频率</th></tr></thead>
+      <tbody>
+        <tr><td>选书采购</td><td>按每阶段清单购买</td><td>每2-3个月</td></tr>
+        <tr><td>动画分层</td><td>把 A/B/C 层动画按文件夹分好</td><td>一次性</td></tr>
+        <tr><td>音频列表</td><td>牛津树/FLR 音频排好顺序</td><td>每月更新</td></tr>
+        <tr><td>进度监控</td><td>和爸爸确认读到哪了</td><td>每两周</td></tr>
+        <tr><td>点读笔</td><td>新书装好点读包</td><td>买书时</td></tr>
+        <tr><td>素材拍摄</td><td>拍安安读书/看动画的过程</td><td>周末</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ====== 7. 立即行动 ====== -->
+<section id="action">
+  <div class="sec-header">
+    <h2><span class="icon" style="background:#DCFCE7;color:#16A34A">🚀</span>现在就做三件事</h2>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">1</div>
+      <div class="step-body">
+        <strong>买牛津树彩虹花Plus（L1-L2，150本）</strong>
+        <span>淘宝搜「牛津树 校园版 彩虹花plus 1-2阶 小蝌蚪点读」· 约100-150元</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">2</div>
+      <div class="step-body">
+        <strong>动画从"随便看"改为"分层看"</strong>
+        <span>前15分钟固定看 Wow English（A层）· 其余时间安安自选</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">3</div>
+      <div class="step-body">
+        <strong>开启 Maisy 和蓝色小考拉</strong>
+        <span>这周就放1集 Maisy 试试 · 安安其实看得懂！</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="banner banner-green">
+    你不需要推翻重来<br>
+    安安的基础非常好！古力小超人 / Q play / W play 正是庆爸阶段一的核心素材
+  </div>
+</section>
+
+</div>
+
+<script>
+// Sticky nav active state
+const links=document.querySelectorAll('.nav a');
+const sections=document.querySelectorAll('section[id]');
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){
+    links.forEach(l=>l.classList.remove('active'));
+    const a=document.querySelector('.nav a[href="#'+e.target.id+'"]');
+    if(a)a.classList.add('active');
+  }});
+},{rootMargin:'-80px 0px -60% 0px',threshold:0});
+sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>

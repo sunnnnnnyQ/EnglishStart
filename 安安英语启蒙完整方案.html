@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>安安英语启蒙完整方案</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ========== Notion-inspired warm minimal tokens ========== */
+:root{
+  --bg:#ffffff;--bg2:#f7f6f3;--bg3:#f0efeb;
+  --text:rgba(0,0,0,.92);--text2:#615d59;--text3:#a39e98;
+  --accent:#0075de;--accent-bg:#f2f9ff;--accent-dark:#005bab;
+  --emerald:#2a9d99;--emerald-bg:#ecfdf5;
+  --amber:#dd5b00;--amber-bg:#fffbeb;
+  --rose:#e11d48;--rose-bg:#fff1f2;
+  --violet:#6366f1;--violet-bg:#eef2ff;
+  --border:rgba(0,0,0,.08);--border2:rgba(0,0,0,.12);
+  --r:10px;--r-lg:16px;
+  --shadow:0 4px 18px rgba(0,0,0,.04),0 2px 8px rgba(0,0,0,.025),0 .8px 3px rgba(0,0,0,.018);
+  --shadow-lg:0 14px 28px rgba(0,0,0,.04),0 7px 15px rgba(0,0,0,.025);
+  --font:'Inter','Noto Sans SC',-apple-system,BlinkMacSystemFont,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font);background:var(--bg2);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+
+/* ===== HERO ===== */
+.hero{background:var(--bg);border-bottom:1px solid var(--border);padding:48px 24px 0;text-align:center}
+.hero h1{font-size:clamp(28px,5vw,42px);font-weight:800;letter-spacing:-.03em;color:var(--text);margin-bottom:8px}
+.hero .sub{font-size:15px;color:var(--text2);margin-bottom:24px}
+.hero-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:28px}
+.hero-tag{padding:5px 14px;border-radius:999px;font-size:13px;font-weight:600;border:1px solid var(--border2);background:var(--bg2);color:var(--text2)}
+
+/* ===== TOP TABS ===== */
+.top-tabs{display:flex;justify-content:center;gap:0;border-bottom:none}
+.top-tab{padding:14px 32px;font-size:15px;font-weight:600;color:var(--text3);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;user-select:none;position:relative;bottom:-1px}
+.top-tab:hover{color:var(--text2)}
+.top-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* ===== MAIN WRAP ===== */
+.main{max-width:960px;margin:0 auto;padding:0 20px 80px}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* ===== SECTION ===== */
+section{margin-top:40px}
+.sh{margin-bottom:20px}
+.sh h2{font-size:clamp(20px,3vw,26px);font-weight:800;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
+.sh h2 .ico{width:34px;height:34px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.sh p{color:var(--text2);font-size:14px;margin-top:4px;padding-left:44px}
+
+/* ===== SUB NAV (within tab) ===== */
+.sub-nav{position:sticky;top:0;z-index:90;background:rgba(247,246,243,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:8px 0;margin-bottom:8px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sub-nav-inner{display:flex;gap:4px;max-width:960px;margin:0 auto;padding:0 20px}
+.sub-nav a{flex-shrink:0;padding:6px 14px;border-radius:6px;font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;transition:all .15s;white-space:nowrap}
+.sub-nav a:hover{background:var(--bg3);color:var(--text)}
+
+/* ===== CARD ===== */
+.c{background:var(--bg);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:24px;margin-bottom:18px;border:1px solid var(--border);transition:box-shadow .2s}
+.c:hover{box-shadow:var(--shadow-lg)}
+.ct{font-size:15px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.ct .d{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* ===== TABLE ===== */
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:13.5px;margin:6px 0}
+thead th{background:var(--bg2);font-weight:600;text-align:left;padding:10px 12px;border-bottom:1.5px solid var(--border2);font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:.04em}
+tbody td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--bg2)}
+
+/* ===== BADGE ===== */
+.b{display:inline-flex;align-items:center;gap:3px;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+.b-g{background:#dcfce7;color:#166534}.b-y{background:#fef9c3;color:#854d0e}
+.b-b{background:#dbeafe;color:#1e40af}.b-v{background:#f3e8ff;color:#6b21a8}
+.b-r{background:#ffe4e6;color:#9f1239}.b-o{background:#ffedd5;color:#9a3412}
+
+/* ===== CALLOUT ===== */
+.co{border-radius:var(--r);padding:16px 20px;margin:12px 0;font-size:14px;line-height:1.7;border-left:4px solid}
+.co-b{background:var(--accent-bg);border-color:var(--accent)}.co-g{background:var(--emerald-bg);border-color:var(--emerald)}
+.co-y{background:var(--amber-bg);border-color:var(--amber)}.co-v{background:var(--violet-bg);border-color:var(--violet)}
+.co strong{display:block;margin-bottom:2px}
+
+/* ===== PROGRESS ===== */
+.prog{background:#e2e8f0;border-radius:10px;height:28px;overflow:hidden;margin:8px 0;position:relative}
+.prog-fill{height:100%;border-radius:10px;display:flex;align-items:center;padding:0 12px;font-size:12px;font-weight:700;color:#fff;background:linear-gradient(90deg,var(--emerald),#34d399)}
+
+/* ===== TIMELINE ===== */
+.tl{position:relative;padding-left:34px;margin:8px 0}
+.tl::before{content:'';position:absolute;left:13px;top:0;bottom:0;width:3px;border-radius:3px;background:linear-gradient(180deg,var(--violet),var(--accent),var(--emerald),var(--amber))}
+.tn{position:relative;margin-bottom:24px}
+.tn::before{content:'';position:absolute;left:-26px;top:4px;width:16px;height:16px;border-radius:50%;border:3.5px solid var(--accent);background:#fff}
+.tn.now::before{background:var(--accent);box-shadow:0 0 0 5px rgba(0,117,222,.15)}
+.tn-l{font-size:14px;font-weight:700;color:var(--accent)}.tn-s{font-size:12px;color:var(--text3);margin-top:1px}
+
+/* ===== SCHEDULE ===== */
+.sc{display:flex;flex-direction:column;gap:1px}
+.sr{display:grid;grid-template-columns:80px 1fr 54px;gap:8px;align-items:center;padding:11px 12px;border-radius:6px;font-size:14px}
+.sr:nth-child(odd){background:var(--bg2)}
+.sr:hover{background:var(--bg3)}
+.sr-t{font-weight:700;color:var(--accent);font-size:13px}
+.sr-d{color:var(--text3);font-size:12px;text-align:right;font-weight:500}
+
+/* ===== LAYERS ===== */
+.ly{display:flex;flex-direction:column;gap:3px}
+.lr{display:grid;grid-template-columns:44px 1fr auto auto;gap:8px;align-items:center;padding:10px 12px;border-radius:6px;font-size:14px}
+.lr:hover{background:var(--bg2)}
+.lr-t{font-weight:800;font-size:14px}
+
+/* ===== SHOP ===== */
+.sp{display:flex;flex-direction:column;gap:1px}
+.spr{display:flex;justify-content:space-between;align-items:center;padding:11px 12px;border-radius:6px}
+.spr:nth-child(odd){background:var(--bg2)}
+.spr:hover{background:var(--accent-bg)}
+.spr-n{font-weight:600;font-size:14px}
+.spr-p{color:var(--text3);font-size:13px;display:flex;align-items:center;gap:6px}
+.sp-total{text-align:right;font-weight:800;color:var(--accent);font-size:15px;padding:10px 12px 0}
+
+/* ===== STEPS ===== */
+.steps{display:grid;gap:12px}
+.step{display:flex;gap:14px;padding:18px;border-radius:var(--r);background:var(--accent-bg);border:1px solid rgba(0,117,222,.12);transition:transform .15s}
+.step:hover{transform:translateY(-2px)}
+.step-n{width:38px;height:38px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;flex-shrink:0}
+.step-b strong{display:block;font-size:15px;margin-bottom:3px}
+.step-b span{font-size:13px;color:var(--text2)}
+
+/* ===== BANNER ===== */
+.ban{text-align:center;padding:28px;border-radius:var(--r-lg);margin-top:20px;font-size:16px;font-weight:700;line-height:1.8}
+.ban-g{background:var(--emerald-bg);border:1.5px solid #a7f3d0;color:#065f46}
+
+/* ===== GRADED CARD (for research tab) ===== */
+.gc{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;margin-bottom:16px;box-shadow:var(--shadow)}
+.gc-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.gc-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;flex-shrink:0}
+.gc-name{font-size:17px;font-weight:800;letter-spacing:-.01em}
+.gc-sub{font-size:12px;color:var(--text3);font-weight:500}
+.gc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.gc-block h4{font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.gc-block ul{list-style:none;font-size:13.5px}
+.gc-block li{padding:3px 0;padding-left:18px;position:relative}
+.gc-block li::before{content:'';position:absolute;left:0;top:10px;width:6px;height:6px;border-radius:50%}
+.gc-block.pros li::before{background:var(--emerald)}
+.gc-block.cons li::before{background:var(--rose)}
+
+/* ===== CATEGORY GRID ===== */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.cat-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:18px;transition:box-shadow .2s}
+.cat-card:hover{box-shadow:var(--shadow-lg)}
+.cat-card .cat-icon{font-size:28px;margin-bottom:8px}
+.cat-card h4{font-size:15px;font-weight:700;margin-bottom:4px}
+.cat-card .cat-age{font-size:12px;color:var(--accent);font-weight:600;margin-bottom:6px}
+.cat-card p{font-size:13px;color:var(--text2);line-height:1.6}
+.cat-card .cat-rep{font-size:12px;color:var(--text3);margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
+
+/* ===== ROADMAP ===== */
+.rm{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:4px;margin:12px 0}
+.rm-step{padding:14px;border-radius:var(--r);text-align:center;font-size:13px;border:1px solid var(--border)}
+.rm-step .rm-age{font-weight:800;font-size:14px;margin-bottom:4px}
+.rm-step .rm-desc{color:var(--text2);font-size:12px;line-height:1.5}
+
+/* ===== COMPARE TABLE ===== */
+.cmp{overflow-x:auto}
+.cmp table{min-width:700px}
+.cmp th:first-child{width:80px}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:640px){
+  .hero{padding:36px 16px 0}
+  .main{padding:0 12px 60px}
+  .c{padding:18px}
+  .gc-grid{grid-template-columns:1fr}
+  .cat-grid{grid-template-columns:1fr}
+  .rm{grid-template-columns:repeat(3,1fr)}
+  .top-tab{padding:12px 20px;font-size:14px}
+  table{font-size:12.5px}
+  thead th,tbody td{padding:8px 10px}
+  .lr{grid-template-columns:36px 1fr auto}
+  .lr>:nth-child(4){display:none}
+  .sr{grid-template-columns:68px 1fr 46px}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <h1>安安的英语启蒙完整方案</h1>
+  <p class="sub">庆爸常规路线 + 大循环融合 · 两份研究报告综合版</p>
+  <div class="hero-tags">
+    <span class="hero-tag">👶 3岁4个月</span>
+    <span class="hero-tag">📝 200词汇</span>
+    <span class="hero-tag">🔤 26字母</span>
+    <span class="hero-tag">🐛 毛毛虫</span>
+    <span class="hero-tag">🐸 小蝌蚪</span>
+  </div>
+  <div class="top-tabs" id="topTabs">
+    <div class="top-tab active" data-tab="research">📚 启蒙研究</div>
+    <div class="top-tab" data-tab="plan">🗺️ 安安规划</div>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ================================================================ -->
+<!-- TAB 1: 启蒙研究 -->
+<!-- ================================================================ -->
+<div class="tab-content active" id="tab-research">
+
+<div class="sub-nav"><div class="sub-nav-inner">
+  <a href="#graded">分级体系</a><a href="#category">绘本分类</a><a href="#theory">启蒙理论</a><a href="#tops">Top推荐</a><a href="#banana">🍌香蕉妈妈</a><a href="#compare">体系对比</a><a href="#howto">怎么读</a>
+</div></div>
+
+<!-- ---- 分级体系 ---- -->
+<section id="graded">
+<div class="sh"><h2><span class="ico" style="background:var(--violet-bg);color:var(--violet)">📖</span>八大分级阅读体系</h2>
+<p>综合两份研究报告 + 小红书30+篇高赞笔记 + 官方资料</p></div>
+
+<div class="co co-v"><strong>分级标准 vs 分级书系（很多家长搞混的概念）</strong>
+<strong style="font-weight:400">第一层：分级标准</strong> — GRL、Lexile（蓝思）、AR、DRA → 这是"量难度的尺子"<br>
+<strong style="font-weight:400">第二层：分级书系</strong> — 海尼曼、牛津树、RAZ 等 → 这是"给孩子读的具体书"<br>
+买书时看第二层就够了。不同体系之间难度不完全等价，不要硬对标。</div>
+
+<!-- 海尼曼 -->
+<div class="gc">
+  <div class="gc-head">
+    <div class="gc-icon" style="background:#10b981">H</div>
+    <div><div class="gc-name">海尼曼 Heinemann</div><div class="gc-sub">🇺🇸 美国 · Leveled Literacy Intervention · "开口神器"</div></div>
+  </div>
+  <p style="font-size:13.5px;color:var(--text2);margin-bottom:12px">原为帮助<strong>美国有读写障碍的孩子</strong>重回平均水平而设计的干预系统。NFER誉为"最成功的儿童阅读丛书"，全美小学教师使用率最高。GK 70本 → G1 110本 → G2 118本，使用 A-Z 26级分级标准。</p>
+  <div class="gc-grid">
+    <div class="gc-block pros"><h4>优点</h4><ul>
+      <li>句型重复率极高，"开口神器"</li>
+      <li>排版直观：左页文字右页大图</li>
+      <li>知识面广，50%+非虚构</li>
+      <li>零基础可读，起点极低</li>
+      <li>祖国版/点读版资源丰富</li>
+    </ul></div>
+    <div class="gc-block cons"><h4>缺点</h4><ul>
+      <li>趣味性偏弱，画面不精美</li>
+      <li>G1→G2跨度太大，容易卡</li>
+      <li>故事性不强，孩子易枯燥</li>
+      <li>不建议只靠这一套</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- 牛津树 -->
+<div class="gc">
+  <div class="gc-head">
+    <div class="gc-icon" style="background:#3b82f6">O</div>
+    <div><div class="gc-name">牛津树 Oxford Reading Tree</div><div class="gc-sub">🇬🇧 英国 · 1986年至今 · "故事之王"</div></div>
+  </div>
+  <p style="font-size:13.5px;color:var(--text2);margin-bottom:12px">牛津大学出版社出品，Roderick Hunt 和 Alex Brychta 创作。英国80%+公立小学教材，全球130+国家使用。体系800+本，Stage 1-16。核心围绕 Biff、Chip、Kipper 一家展开。</p>
+  <div class="gc-grid">
+    <div class="gc-block pros"><h4>优点</h4><ul>
+      <li>故事性极强，像追连续剧</li>
+      <li>完整人物关系和故事线</li>
+      <li>配套丰富：音频+点读</li>
+      <li>融入自然拼读教学</li>
+      <li>体系庞大，启蒙到高阶一站式</li>
+    </ul></div>
+    <div class="gc-block cons"><h4>缺点</h4><ul>
+      <li>起点较高（建议100-500词+）</li>
+      <li>版本众多，容易买乱</li>
+      <li>正版价格偏高</li>
+      <li>大多过去式叙事，时态单一</li>
+      <li>没有科普向读物</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- RAZ -->
+<div class="gc">
+  <div class="gc-head">
+    <div class="gc-icon" style="background:#f59e0b">R</div>
+    <div><div class="gc-name">RAZ / Reading A-Z</div><div class="gc-sub">🇺🇸 美国 · Learning A-Z · "百科全书"</div></div>
+  </div>
+  <p style="font-size:13.5px;color:var(--text2);margin-bottom:12px">美国10,000+所公立学校使用，全球165国家。27个级别（aa→Z2），分级最细。3000+本，覆盖虚构+非虚构。被称为"分级阅读的百科全书"。</p>
+  <div class="gc-grid">
+    <div class="gc-block pros"><h4>优点</h4><ul>
+      <li>分级最细，过渡最平滑</li>
+      <li>内容极其丰富（3000+本）</li>
+      <li>非虚构/科普占比高</li>
+      <li>坚持刷词汇量增长最快</li>
+      <li>有配套APP做quiz</li>
+    </ul></div>
+    <div class="gc-block cons"><h4>缺点</h4><ul>
+      <li>枯燥！E级后容易刷不进</li>
+      <li>画面质量参差不齐</li>
+      <li>故事性弱，更像教材</li>
+      <li>4岁以下小童接受度低</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- 其他体系 -->
+<div class="gc">
+  <div class="gc-head">
+    <div class="gc-icon" style="background:#ef4444">R</div>
+    <div><div class="gc-name">红火箭 Red Rocket Readers</div><div class="gc-sub">🇳🇿 新西兰 · 与海尼曼同一作者 · "零基础之友"</div></div>
+  </div>
+  <p style="font-size:13.5px;color:var(--text2)">专为英语非母语国家设计。从字母开始，融入自然拼读。实物图好，跨度平稳。虚构+非虚构1:1。可理解为"简化版RAZ"。</p>
+</div>
+
+<div class="gc">
+  <div class="gc-head">
+    <div class="gc-icon" style="background:#8b5cf6">P</div>
+    <div><div class="gc-name">培生 Pearson · 大猫 Big Cat · 兰登 Step into Reading · FLR</div><div class="gc-sub">🇬🇧🇺🇸 其他主流体系</div></div>
+  </div>
+  <table style="margin-top:8px">
+    <thead><tr><th>体系</th><th>特点</th><th>适合谁</th></tr></thead>
+    <tbody>
+      <tr><td><strong>培生</strong></td><td>百搭补充，预备级适合零基础，体系不清晰</td><td>辅助读物</td></tr>
+      <tr><td><strong>大猫 Big Cat</strong></td><td>英国本土教材，插画最精美，配思维导图</td><td>大童/小学生主线</td></tr>
+      <tr><td><strong>兰登</strong></td><td>故事有趣，语言富韵律感，不适合零基础</td><td>有基础后拓展</td></tr>
+      <tr><td><strong>FLR</strong></td><td>学乐出品，超级入门，比海尼曼更简单</td><td>零基础首选</td></tr>
+      <tr><td><strong>I Can Read</strong></td><td>各系列绘本按难度分级，故事性好</td><td>过渡到自主阅读</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<!-- ---- 绘本分类 ---- -->
+<section id="category">
+<div class="sh"><h2><span class="ico" style="background:var(--amber-bg);color:var(--amber)">📂</span>英语绘本8大分类</h2>
+<p>综合两份报告：报告A发现8类，报告B总结6类，合并去重后的完整版</p></div>
+
+<div class="co co-b"><strong>一句话理解分类的作用</strong>
+故事 → 解决"愿不愿意读" · 分级 → 解决"能不能跟着读" · 科普 → 解决"有没有更宽的世界" · 拼读 → 解决"以后能不能自己读"</div>
+
+<div class="cat-grid">
+  <div class="cat-card"><div class="cat-icon">📖</div><h4>故事类绘本</h4><div class="cat-age">0岁起 · 最早可接触的类型</div><p>以讲故事为核心，文学性强。细分：经典故事、角色系列、情绪管理、生活习惯。</p><div class="cat-rep">代表：Elephant and Piggie · Pete the Cat · Biscuit</div></div>
+
+  <div class="cat-card"><div class="cat-icon">📚</div><h4>分级读物</h4><div class="cat-age">1.5-2岁起</div><p>严格按难度分级，系统化设计，注重技能训练。难度控制+句型重复+体系清楚。</p><div class="cat-rep">代表：海尼曼 · 牛津树 · RAZ · FLR</div></div>
+
+  <div class="cat-card"><div class="cat-icon">🔬</div><h4>科普/非虚构</h4><div class="cat-age">2-3岁起 · 从兴趣主题切入</div><p>传递知识，用真实图片培养认知。要从孩子感兴趣的主题（动物/车）开始，不要从大百科切入。</p><div class="cat-rep">代表：National Geographic Kids · I Am系列 · DK Readers</div></div>
+
+  <div class="cat-card"><div class="cat-icon">🎵</div><h4>儿歌/韵律类</h4><div class="cat-age">0岁起 · 最早的启蒙形式</div><p>押韵、节奏强，配合旋律和动作。磨耳朵、培养语感、建立英语好感。</p><div class="cat-rep">代表：Mother Goose · SSS · Wee Sing</div></div>
+
+  <div class="cat-card"><div class="cat-icon">🖐️</div><h4>互动操作类</h4><div class="cat-age">0-3岁黄金期</div><p>翻翻书、触摸书、洞洞书、推拉书。建立阅读兴趣，精细动作训练。</p><div class="cat-rep">代表：Dear Zoo · Where's Spot? · Bizzy Bear</div></div>
+
+  <div class="cat-card"><div class="cat-icon">🧩</div><h4>自然拼读类</h4><div class="cat-age">3-4岁接触 · 4-6岁系统学</div><p>专门教字母发音规则和拼读技巧。从"背熟一本"走向"按规则拼出来"。</p><div class="cat-rep">代表：Jolly Phonics · Bob Books · Floppy's Phonics</div></div>
+
+  <div class="cat-card"><div class="cat-icon">🌉</div><h4>桥梁书</h4><div class="cat-age">5-7岁</div><p>从绘本过渡到文字书。图还在但文字更多，章节更清楚。</p><div class="cat-rep">代表：Fly Guy · Mercy Watson · Magic Tree House</div></div>
+
+  <div class="cat-card"><div class="cat-icon">📔</div><h4>主题认知类</h4><div class="cat-age">0-2岁</div><p>围绕颜色、形状、数字、字母等基本概念。句子短、图像强。</p><div class="cat-rep">代表：Eric Carle系列 · Sandra Boynton纸板书</div></div>
+</div>
+
+<div class="c" style="margin-top:18px">
+  <div class="ct"><span class="d" style="background:var(--accent)"></span>最实用的介入顺序</div>
+  <div class="rm">
+    <div class="rm-step" style="background:var(--emerald-bg)"><div class="rm-age">0-2岁</div><div class="rm-desc">儿歌韵律<br>互动操作<br>主题认知</div></div>
+    <div class="rm-step" style="background:var(--accent-bg)"><div class="rm-age">2-3岁</div><div class="rm-desc">故事绘本<br>分级入门<br>简单科普</div></div>
+    <div class="rm-step" style="background:var(--violet-bg)"><div class="rm-age">3-4岁</div><div class="rm-desc">分级进阶<br>角色系列<br>科普拓展</div></div>
+    <div class="rm-step" style="background:var(--amber-bg)"><div class="rm-age">4-5岁</div><div class="rm-desc">自然拼读<br>分级中高阶<br>裸听训练</div></div>
+    <div class="rm-step" style="background:var(--rose-bg)"><div class="rm-age">5-6岁</div><div class="rm-desc">桥梁书<br>自主阅读<br>章节书</div></div>
+  </div>
+</div>
+</section>
+
+<!-- ---- 启蒙理论 ---- -->
+<section id="theory">
+<div class="sh"><h2><span class="ico" style="background:var(--emerald-bg);color:var(--emerald)">🧠</span>启蒙理论与方法</h2>
+<p>第一层：底层理论（五大流派）· 第二层：实操博主（可直接抄作业的方法）</p></div>
+
+<div class="co co-v"><strong>两层理解框架</strong>
+<strong style="font-weight:400">底层理论</strong> → 汪培珽、盖兆泉、廖彩杏、吴敏兰、安妮鲜花 → 回答"为什么这样做"<br>
+<strong style="font-weight:400">实操方法</strong> → 庆爸、Susan教英语、常爸、香蕉妈妈等博主 → 回答"具体怎么做"<br>
+理论派提供思想框架，博主派提供可执行路线。两层结合才完整。</div>
+
+<!-- ===== 第一层：五大理论 ===== -->
+<div class="c">
+<div class="ct"><span class="d" style="background:var(--violet)"></span>第一层：五大启蒙理论流派</div>
+<p style="font-size:13.5px;color:var(--text2);margin-bottom:14px">这五位是中文世界英语启蒙的"教母级"人物。她们的书是绝大多数博主方法论的源头。</p>
+
+<table>
+<thead><tr><th style="min-width:70px">人物</th><th>代表作</th><th>核心理念</th><th>方法标签</th><th>特点</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>汪培珽</strong><br><span style="font-size:11px;color:var(--text3)">🇹🇼 纽约圣约翰大学MBA</span></td>
+  <td>《培养孩子的英文耳朵》</td>
+  <td>亲子共读 + 中英对照翻译法</td>
+  <td><span class="b b-g">温情派</span></td>
+  <td>一句英文一句中文念；先爱上故事再听音频；最亲民，解决家长焦虑</td>
+</tr>
+<tr>
+  <td><strong>盖兆泉</strong><br><span style="font-size:11px;color:var(--text3)">🇨🇳 北外硕士·外研社编辑</span></td>
+  <td>《做孩子最好的英语学习规划师》</td>
+  <td>二语习得理论 · 可理解性输入(i+1)</td>
+  <td><span class="b b-b">科学规划派</span></td>
+  <td>3岁后启蒙（前3年留给母语）；绘本是甜点，分级是主食；按年龄段精确规划路线</td>
+</tr>
+<tr>
+  <td><strong>廖彩杏</strong><br><span style="font-size:11px;color:var(--text3)">🇹🇼 前英语教师·双胞胎妈妈</span></td>
+  <td>《用有声书轻松听出英语力》</td>
+  <td>有声书学习法 · "四不一没有"</td>
+  <td><span class="b b-y">省妈派</span></td>
+  <td>不认单词、不学语法、不翻译、不考试；52周130本计划；靠音频即可，最省妈</td>
+</tr>
+<tr>
+  <td><strong>吴敏兰</strong><br><span style="font-size:11px;color:var(--text3)">🇹🇼 哈佛双语教育硕士</span></td>
+  <td>《绘本123》</td>
+  <td>互动式阅读 · 兴趣与好感度优先</td>
+  <td><span class="b b-v">趣味派</span></td>
+  <td>每天20分钟念3本+；用道具、游戏、韵谣互动；不要用绘本说教</td>
+</tr>
+<tr>
+  <td><strong>安妮鲜花</strong><br><span style="font-size:11px;color:var(--text3)">🇨🇳 律师·有加拿大经历</span></td>
+  <td>《不能错过的英语启蒙》</td>
+  <td>自然拼读Phonics + 韵律节奏 + 磨耳朵</td>
+  <td><span class="b b-o">学院实战派</span></td>
+  <td>最强调语音关键期，建议婴儿期开始；借鉴北美教育；海量输入不迷信书单</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="c">
+<div class="ct"><span class="d" style="background:var(--amber)"></span>五大流派核心分歧</div>
+<table>
+<thead><tr><th>分歧点</th><th>汪培珽</th><th>盖兆泉</th><th>廖彩杏</th><th>吴敏兰</th><th>安妮鲜花</th></tr></thead>
+<tbody>
+<tr><td><strong>何时开始</strong></td><td>越早越好</td><td><span class="b b-b">3岁后</span>（前3年给母语）</td><td>不纠结</td><td>越早越好</td><td><span class="b b-o">0岁</span>（婴儿期磨耳朵）</td></tr>
+<tr><td><strong>核心素材</strong></td><td>绘本</td><td><span class="b b-b">分级读物</span>（绘本是甜点）</td><td>有声书</td><td>绘本</td><td>海量资源</td></tr>
+<tr><td><strong>要不要翻译</strong></td><td><span class="b b-g">要！</span>一句英文一句中文</td><td>不依赖翻译</td><td><span class="b b-r">绝对禁止</span></td><td>灵活，可中英夹杂</td><td>相对宽容</td></tr>
+<tr><td><strong>家长参与度</strong></td><td>高（亲子共读）</td><td>高（需规划）</td><td>低（靠音频）</td><td>高（互动游戏）</td><td>中（提供环境）</td></tr>
+<tr><td><strong>对磨耳朵态度</strong></td><td>支持</td><td><span class="b b-r">反对无效磨耳朵</span></td><td>核心方法</td><td>支持</td><td>核心方法</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="c">
+<div class="ct"><span class="d" style="background:var(--emerald)"></span>五大流派的共识（比分歧更重要）</div>
+<table>
+<thead><tr><th>#</th><th>共识</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>听力先行</strong></td><td>所有人都认为"听"是第一步，必须先听够</td></tr>
+<tr><td>2</td><td><strong>无痛习得</strong></td><td>兴趣第一，弱化压力，不考试不纠错</td></tr>
+<tr><td>3</td><td><strong>阅读核心</strong></td><td>无论绘本还是分级，阅读是积累词汇的核心手段</td></tr>
+<tr><td>4</td><td><strong>家长坚持</strong></td><td>以十年为单位的长跑心态，日复一日</td></tr>
+<tr><td>5</td><td><strong>听说读写顺序</strong></td><td>遵循自然习得顺序，不能颠倒</td></tr>
+<tr><td>6</td><td><strong>尊重沉默期</strong></td><td>输入积累到一定量才会输出，不急</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ===== 第二层：实操博主 ===== -->
+<div class="c">
+<div class="ct"><span class="d" style="background:var(--accent)"></span>第二层：实操博主方法盘点（可直接抄作业）</div>
+<p style="font-size:13.5px;color:var(--text2);margin-bottom:14px">这些博主在五大理论基础上，结合自己孩子的实践，总结出了可执行的具体方案。</p>
+
+<table>
+<thead><tr><th style="min-width:80px">博主</th><th>理论来源</th><th>核心方法</th><th>适合谁</th><th>特色</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>庆爸</strong><br><span style="font-size:11px;color:var(--text3)">小花生网</span></td>
+  <td>汪培珽+盖兆泉融合</td>
+  <td>"大循环"亲子共读牛津树 + "常规路线"多线并行</td>
+  <td>3-8岁·有时间投入的家庭</td>
+  <td>路线图最清晰，分阶段有明确素材清单；大循环短期见效快；常规路线温和可控</td>
+</tr>
+<tr>
+  <td><strong>Susan教英语</strong><br><span style="font-size:11px;color:var(--text3)">B站/小红书/喜马拉雅</span></td>
+  <td>TPR教学法+生活场景输入</td>
+  <td>名词100集+动词100集+日常高频句视频教学</td>
+  <td>0-6岁·家长英语弱的家庭</td>
+  <td>迪士尼特约作者；《人民日报》推荐；视频直接跟学，最适合"英语渣妈"；生活化高频词句为主</td>
+</tr>
+<tr>
+  <td><strong>常爸（常青藤爸爸）</strong><br><span style="font-size:11px;color:var(--text3)">APP+小红书</span></td>
+  <td>盖兆泉路线+儿歌动画体系</td>
+  <td>0-9岁亲子英语启蒙规划课 + APP配套</td>
+  <td>0-6岁·偏系统化的家庭</td>
+  <td>有完整APP和付费课程；儿歌和分级读物体系化；适合想要"一站式解决方案"的家长</td>
+</tr>
+<tr>
+  <td><strong>香蕉妈妈</strong><br><span style="font-size:11px;color:var(--text3)">小红书</span></td>
+  <td>绘本精读派</td>
+  <td>绘本精选推荐+精读方法+书单搭配</td>
+  <td>2-6岁·重视绘本选择的家庭</td>
+  <td>"绘本界的李佳琦"，推荐不踩雷；从1万粉涨到20万粉；启蒙观点非常值得学习</td>
+</tr>
+<tr>
+  <td><strong>带你避坑的刀刃侠</strong><br><span style="font-size:11px;color:var(--text3)">小红书·9672赞</span></td>
+  <td>庆爸路线+动画分级</td>
+  <td>SSS→动画→分级→牛津树的阶梯路线</td>
+  <td>0-6岁·想要简单路线的家庭</td>
+  <td>单篇笔记9672赞/1.5万收藏；路线最简洁清晰，3步走；强调"前期丢掉教材"</td>
+</tr>
+<tr>
+  <td><strong>水熊妈咪Serena</strong><br><span style="font-size:11px;color:var(--text3)">小红书</span></td>
+  <td>语言学专业+一线教学</td>
+  <td>专业语言学背景的家庭启蒙方法</td>
+  <td>0-6岁·看重科学性的家庭</td>
+  <td>港中大语言学硕士；8年一线教学经验；专业度最高的小红书博主之一</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="c">
+<div class="ct"><span class="d" style="background:var(--violet)"></span>博主方法 vs 理论流派的对应关系</div>
+<table>
+<thead><tr><th>博主</th><th>汪培珽<br>（亲子共读）</th><th>盖兆泉<br>（二语习得）</th><th>廖彩杏<br>（有声书）</th><th>安妮鲜花<br>（Phonics）</th></tr></thead>
+<tbody>
+<tr><td><strong>庆爸</strong></td><td><span class="b b-g">✅ 核心采用</span></td><td><span class="b b-g">✅ 核心采用</span></td><td>—</td><td>部分</td></tr>
+<tr><td><strong>Susan</strong></td><td>部分</td><td><span class="b b-g">✅ TPR输入</span></td><td>—</td><td>—</td></tr>
+<tr><td><strong>常爸</strong></td><td>部分</td><td><span class="b b-g">✅ 核心采用</span></td><td><span class="b b-g">✅ 儿歌部分</span></td><td>部分</td></tr>
+<tr><td><strong>刀刃侠</strong></td><td>部分</td><td><span class="b b-g">✅ 路线参考</span></td><td><span class="b b-g">✅ SSS部分</span></td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="c">
+<div class="ct"><span class="d" style="background:var(--accent)"></span>安安家应该怎么选？</div>
+<div class="co co-g" style="margin:0">
+<strong>理论层面：采用盖兆泉的"二语习得"框架</strong><br>
+→ 听力先行、可理解性输入、分级为主食、按年龄段规划<br><br>
+<strong>方法层面：采用庆爸的"常规路线+大循环"</strong><br>
+→ 庆爸正是融合了汪培珽（亲子共读）+ 盖兆泉（二语习得）的实操版<br><br>
+<strong>补充：Susan教英语的视频</strong><br>
+→ 适合爸爸和安安一起看，跟学日常高频词句，TPR边看边做动作<br><br>
+<strong>绘本选择：参考香蕉妈妈的书单推荐</strong><br>
+→ 不踩雷
+</div>
+</div>
+
+<div class="c">
+<div class="ct"><span class="d" style="background:var(--amber)"></span>庆爸两条路径详解</div>
+<table>
+<thead><tr><th>维度</th><th>大循环</th><th>常规路线</th></tr></thead>
+<tbody>
+<tr><td>适合年龄</td><td>4.5-8岁</td><td>0-6岁</td></tr>
+<tr><td>前提</td><td>200+听力词汇</td><td>零基础可开始</td></tr>
+<tr><td>核心方法</td><td>亲子共读牛津树+翻译法</td><td>绘本+动画+分级多线并行</td></tr>
+<tr><td>家长参与</td><td>极高（每天1h+）</td><td>中等（可借助点读笔、动画）</td></tr>
+<tr><td>核心素材</td><td>牛津树1-9级</td><td>多套分级+绘本+动画</td></tr>
+<tr><td>总耗时</td><td>6-12个月密集攻坚</td><td>1-3年循序渐进</td></tr>
+<tr><td>特点</td><td>"大火猛攻"，短期见效</td><td>温和推进，压力小</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- ---- Top推荐 ---- -->
+<section id="tops">
+<div class="sh"><h2><span class="ico" style="background:var(--rose-bg);color:var(--rose)">🏆</span>各类Top10推荐清单</h2>
+<p>综合两份报告的推荐，高度重合的书目优先排名</p></div>
+
+<div class="c">
+  <div class="ct"><span class="d" style="background:var(--accent)"></span>分级阅读 Top10（2-5岁）</div>
+  <table><thead><tr><th>#</th><th>名称</th><th>适龄</th><th>特点</th></tr></thead><tbody>
+    <tr><td>1</td><td><strong>海尼曼GK</strong></td><td>2-4岁</td><td>开口神器，零基础首选</td></tr>
+    <tr><td>2</td><td><strong>First Little Readers</strong></td><td>2-4岁</td><td>比海尼曼更简单，画风可爱</td></tr>
+    <tr><td>3</td><td><strong>牛津树 Stage 1-3</strong></td><td>3-5岁</td><td>故事性最强，追剧式阅读</td></tr>
+    <tr><td>4</td><td><strong>RAZ aa-C</strong></td><td>2-5岁</td><td>分级最细，百科全书式</td></tr>
+    <tr><td>5</td><td><strong>红火箭 入门级</strong></td><td>2-4岁</td><td>实物图好，零基础友好</td></tr>
+    <tr><td>6</td><td><strong>培生幼儿英语预备级</strong></td><td>3-5岁</td><td>性价比高的补充读物</td></tr>
+    <tr><td>7</td><td><strong>My First I Can Read / Biscuit</strong></td><td>3-5岁</td><td>从分级过渡到故事</td></tr>
+    <tr><td>8</td><td><strong>大猫初级</strong></td><td>3-5岁</td><td>插画精美+思维导图</td></tr>
+    <tr><td>9</td><td><strong>Bob Books Set 1</strong></td><td>4-5岁</td><td>极简拼读入门</td></tr>
+    <tr><td>10</td><td><strong>Sight Word Readers</strong></td><td>3.5-5岁</td><td>高频词专项</td></tr>
+  </tbody></table>
+</div>
+
+<div class="c">
+  <div class="ct"><span class="d" style="background:var(--emerald)"></span>科普/Nonfiction Top10（3-6岁）</div>
+  <table><thead><tr><th>#</th><th>名称</th><th>适龄</th><th>主题</th></tr></thead><tbody>
+    <tr><td>1</td><td><strong>NGK Pre-reader: Animals</strong></td><td>3-5岁</td><td>动物（真实照片）</td></tr>
+    <tr><td>2</td><td><strong>NGK Pre-reader: Trucks/Cars</strong></td><td>3-5岁</td><td>交通工具</td></tr>
+    <tr><td>3</td><td><strong>学乐 I Am 系列</strong></td><td>3-5岁</td><td>生活常识</td></tr>
+    <tr><td>4</td><td><strong>Usborne Peep Inside</strong></td><td>3-5岁</td><td>翻翻机关科普</td></tr>
+    <tr><td>5</td><td><strong>Little Kids First Big Book of Animals</strong></td><td>3.5-6岁</td><td>动物百科</td></tr>
+    <tr><td>6</td><td><strong>Little Kids First Big Book of Things That Go</strong></td><td>3.5-6岁</td><td>交通工具百科</td></tr>
+    <tr><td>7</td><td><strong>DK Readers Pre-Level 1</strong></td><td>4-6岁</td><td>动物/交通</td></tr>
+    <tr><td>8</td><td><strong>Oxford inFact 1-3</strong></td><td>4-6岁</td><td>综合科普</td></tr>
+    <tr><td>9</td><td><strong>Let's Read and Find Out Science</strong></td><td>4.5-6.5岁</td><td>自然科学</td></tr>
+    <tr><td>10</td><td><strong>My First Discoveries</strong></td><td>3-5岁</td><td>胶片科普</td></tr>
+  </tbody></table>
+</div>
+
+<div class="c">
+  <div class="ct"><span class="d" style="background:var(--violet)"></span>自然拼读 Top10 + 桥梁书 Top10</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div>
+      <h4 style="font-size:13px;font-weight:700;color:var(--text2);margin-bottom:8px">🧩 自然拼读（4-6岁）</h4>
+      <ol style="font-size:13px;padding-left:18px;line-height:2">
+        <li>Floppy's Phonics</li><li>Songbirds Phonics</li><li>Bob Books Set 1-2</li>
+        <li>Usborne Phonics Readers</li><li>Jolly Phonics Readers</li><li>Scholastic Phonics</li>
+        <li>Biff Chip Kipper Phonics</li><li>Oxford Phonics Readers</li><li>Alphablocks 动画</li><li>Decodable Readers</li>
+      </ol>
+    </div>
+    <div>
+      <h4 style="font-size:13px;font-weight:700;color:var(--text2);margin-bottom:8px">🌉 桥梁书（4.5-7.5岁）</h4>
+      <ol style="font-size:13px;padding-left:18px;line-height:2">
+        <li>Elephant & Piggie</li><li>Biscuit</li><li>Fly Guy</li>
+        <li>Frog and Toad</li><li>Little Bear</li><li>Henry and Mudge</li>
+        <li>Splat the Cat</li><li>Pete the Cat</li><li>Nate the Great</li><li>Amelia Bedelia</li>
+      </ol>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ---- 香蕉妈妈书单 ---- -->
+<section id="banana">
+<div class="sh"><h2><span class="ico" style="background:#fef3c7;color:#b45309">🍌</span>香蕉妈妈推荐书单（3岁+）</h2>
+<p>来源：小花生网香蕉妈妈直播+书单整理 · 绘本界"李佳琦"，推荐不踩雷</p></div>
+
+<div class="c">
+<div class="ct"><span class="d" style="background:var(--amber)"></span>英语启蒙进阶主线（香蕉妈妈体系）</div>
+<p style="font-size:13px;color:var(--text2);margin-bottom:10px">主线牛津树，补充多套经典系列。以下为3岁+适合安安的部分：</p>
+<table>
+<thead><tr><th>#</th><th>书名</th><th>适龄</th><th>类型</th><th>购买</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>牛津树 L1-L2</strong>（校园版彩虹花Plus 150本）</td><td>3-5岁</td><td>分级主线</td><td><a href="https://search.jd.com/Search?keyword=牛津树校园版彩虹花plus" target="_blank" style="color:var(--accent)">京东</a> · <a href="https://s.taobao.com/search?q=牛津树校园版彩虹花plus+小蝌蚪点读" target="_blank" style="color:var(--accent)">淘宝</a></td></tr>
+<tr><td>2</td><td><strong>Llama Llama 羊驼拉玛</strong></td><td>2-4岁</td><td>韵律故事</td><td><a href="https://search.jd.com/Search?keyword=Llama+Llama+英文绘本" target="_blank" style="color:var(--accent)">京东</a> · <a href="https://s.taobao.com/search?q=Llama+Llama+英文+点读" target="_blank" style="color:var(--accent)">淘宝</a></td></tr>
+<tr><td>3</td><td><strong>Pete the Cat 皮特猫</strong></td><td>3-6岁</td><td>故事+情绪</td><td><a href="https://search.jd.com/Search?keyword=Pete+the+Cat+皮特猫+英文" target="_blank" style="color:var(--accent)">京东</a> · <a href="https://s.taobao.com/search?q=Pete+the+Cat+皮特猫+点读" target="_blank" style="color:var(--accent)">淘宝</a></td></tr>
+<tr><td>4</td><td><strong>Maisy 小鼠波波系列</strong>（生活初体验+立体操作书）</td><td>2-5岁</td><td>日常生活</td><td><a href="https://search.jd.com/Search?keyword=Maisy+小鼠波波+英文" target="_blank" style="color:var(--accent)">京东</a> · <a href="https://s.taobao.com/search?q=Maisy+小鼠波波+英文" target="_blank" style="color:var(--accent)">淘宝</a></td></tr>
+<tr><td>5</td><td><strong>Pip and Posy 皮普和波西</strong>（10本）</td><td>2-5岁</td><td>社交故事</td><td><a href="https://search.jd.com/Search?keyword=Pip+and+Posy+英文" target="_blank" style="color:var(--accent)">京东</a> · <a href="https://s.taobao.com/search?q=Pip+and+Posy+英文+绘本" target="_blank" style="color:var(--accent)">淘宝</a></td></tr>
+<tr><td>6</td><td><strong>Biscuit 小饼干狗</strong></td><td>3-5岁</td><td>故事分级</td><td><a href="https://search.jd.com/Search?keyword=Biscuit+小饼干狗+I+Can+Read" target="_blank" style="color:var(--accent)">京东</a> · <a href="https://s.taobao.com/search?q=Biscuit+饼干狗+I+Can+Read" target="_blank" style="color:var(--accent)">淘宝</a></td></tr>
+<tr><td>7</td><td><strong>Winnie and Wilbur 女巫温妮</strong></td><td>3-6岁</td><td>故事经典</td><td><a href="https://search.jd.com/Search?keyword=Winnie+Wilbur+女巫温妮+英文" target="_blank" style="color:var(--accent)">京东</a> · <a href="https://s.taobao.com/search?q=女巫温妮+Winnie+英文" target="_blank" style="color:var(--accent)">淘宝</a></td></tr>
+<tr><td>8</td><td><strong>韵文大师 Audrey Wood 系列</strong></td><td>3-5岁</td><td>韵律故事</td><td><a href="https://search.jd.com/Search?keyword=Audrey+Wood+Child's+Play" target="_blank" style="color:var(--accent)">京东</a> · <a href="https://s.taobao.com/search?q=Audrey+Wood+韵文大师" target="_blank" style="color:var(--accent)">淘宝</a></td></tr>
+<tr><td>9</td><td><strong>兰登分级 Step Into Reading Level 1</strong></td><td>3-5岁</td><td>分级补充</td><td><a href="https://search.jd.com/Search?keyword=Step+Into+Reading+Level+1" target="_blank" style="color:var(--accent)">京东</a> · <a href="https://s.taobao.com/search?q=兰登分级+Step+Into+Reading" target="_blank" style="color:var(--accent)">淘宝</a></td></tr>
+<tr><td>10</td><td><strong>古力小超人</strong>（全12册）</td><td>2-4岁</td><td>启蒙入门</td><td><a href="https://search.jd.com/Search?keyword=古力小超人+英文+绘本" target="_blank" style="color:var(--accent)">京东</a> · <a href="https://s.taobao.com/search?q=古力小超人+英文" target="_blank" style="color:var(--accent)">淘宝</a></td></tr>
+<tr><td>11</td><td><strong>Flubby 系列</strong></td><td>3-5岁</td><td>故事幽默</td><td><a href="https://search.jd.com/Search?keyword=Flubby+Is+Not+a+Good+Pet" target="_blank" style="color:var(--accent)">京东</a> · <a href="https://s.taobao.com/search?q=Flubby+英文+绘本" target="_blank" style="color:var(--accent)">淘宝</a></td></tr>
+<tr><td>12</td><td><strong>Goose 小鹅系列</strong></td><td>3-5岁</td><td>故事</td><td><a href="https://search.jd.com/Search?keyword=Goose+Laura+Wall+英文" target="_blank" style="color:var(--accent)">京东</a> · <a href="https://s.taobao.com/search?q=Goose+Laura+Wall" target="_blank" style="color:var(--accent)">淘宝</a></td></tr>
+<tr><td>13</td><td><strong>Mr Panda 系列</strong></td><td>3-5岁</td><td>礼仪教育</td><td><a href="https://search.jd.com/Search?keyword=Please+Mr+Panda+英文" target="_blank" style="color:var(--accent)">京东</a> · <a href="https://s.taobao.com/search?q=Mr+Panda+Steve+Antony" target="_blank" style="color:var(--accent)">淘宝</a></td></tr>
+<tr><td>14</td><td><strong>Shh! We Have a Plan</strong>（Chris Haughton）</td><td>3-5岁</td><td>故事经典</td><td><a href="https://search.jd.com/Search?keyword=Shh+We+Have+a+Plan" target="_blank" style="color:var(--accent)">京东</a> · <a href="https://s.taobao.com/search?q=Shh+We+Have+a+Plan" target="_blank" style="color:var(--accent)">淘宝</a></td></tr>
+<tr><td>15</td><td><strong>Three Little Sharks 三只小鲨鱼</strong>（Nick Sharratt）</td><td>3-5岁</td><td>互动故事</td><td><a href="https://search.jd.com/Search?keyword=Three+Little+Sharks+Nick+Sharratt" target="_blank" style="color:var(--accent)">京东</a> · <a href="https://s.taobao.com/search?q=三只小鲨鱼+Nick+Sharratt" target="_blank" style="color:var(--accent)">淘宝</a></td></tr>
+</tbody>
+</table>
+<div class="co co-g" style="margin-top:10px"><strong>香蕉妈妈科普路线（3岁+动物/车主题优先）</strong>
+科普路线视频在抖音获10.4万赞。核心推荐：先从动物/车切入 → National Geographic Kids → DK Readers → Let's Read and Find Out Science → 科普分级读物（RAZ非虚构部分）</div>
+</div>
+</section>
+<section id="compare">
+<div class="sh"><h2><span class="ico" style="background:#dbeafe;color:#1d4ed8">⚖️</span>体系一图对比</h2></div>
+
+<div class="c cmp">
+  <table>
+    <thead><tr><th>体系</th><th>起源</th><th>最大优势</th><th>最大不足</th><th>起点</th><th>趣味</th><th>知识面</th></tr></thead>
+    <tbody>
+      <tr><td><strong>海尼曼</strong></td><td>🇺🇸</td><td>开口神器</td><td>G1-G2跨度大</td><td>零基础</td><td>⭐⭐</td><td>⭐⭐⭐⭐</td></tr>
+      <tr><td><strong>牛津树</strong></td><td>🇬🇧</td><td>故事最好</td><td>起点偏高</td><td>100词+</td><td>⭐⭐⭐⭐⭐</td><td>⭐⭐⭐</td></tr>
+      <tr><td><strong>RAZ</strong></td><td>🇺🇸</td><td>分级最细</td><td>枯燥</td><td>零基础</td><td>⭐⭐</td><td>⭐⭐⭐⭐⭐</td></tr>
+      <tr><td><strong>红火箭</strong></td><td>🇳🇿</td><td>实物图好</td><td>知名度低</td><td>零基础</td><td>⭐⭐⭐</td><td>⭐⭐⭐⭐</td></tr>
+      <tr><td><strong>培生</strong></td><td>🇬🇧</td><td>百搭补充</td><td>体系不清晰</td><td>零基础</td><td>⭐⭐⭐</td><td>⭐⭐⭐</td></tr>
+      <tr><td><strong>大猫</strong></td><td>🇬🇧</td><td>插画最美</td><td>普及度低</td><td>有基础</td><td>⭐⭐⭐⭐</td><td>⭐⭐⭐⭐</td></tr>
+      <tr><td><strong>兰登</strong></td><td>🇺🇸</td><td>故事有趣</td><td>分级不细</td><td>有基础</td><td>⭐⭐⭐⭐</td><td>⭐⭐⭐</td></tr>
+      <tr><td><strong>FLR</strong></td><td>🇺🇸</td><td>超级入门</td><td>体量小</td><td>零基础</td><td>⭐⭐⭐</td><td>⭐⭐</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="c">
+  <div class="ct"><span class="d" style="background:var(--accent)"></span>同级别混刷对照</div>
+  <table>
+    <thead><tr><th>难度</th><th>对应读物</th></tr></thead>
+    <tbody>
+      <tr><td><span class="b b-g">入门级</span></td><td>FLR A-B = 海尼曼GK前半 = RAZ aa-A = 培生预备级</td></tr>
+      <tr><td><span class="b b-b">初级</span></td><td>FLR C-D = 海尼曼GK后半 = RAZ B-D = 牛津树1-2 = 兰登1</td></tr>
+      <tr><td><span class="b b-v">进阶级</span></td><td>海尼曼G1 = RAZ E-I = 牛津树3-5 = 大猫初级</td></tr>
+      <tr><td><span class="b b-o">中级</span></td><td>海尼曼G2 = RAZ J-N = 牛津树6-8</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<!-- ---- 怎么读 ---- -->
+<section id="howto">
+<div class="sh"><h2><span class="ico" style="background:var(--emerald-bg);color:var(--emerald)">📋</span>分级读物怎么读</h2></div>
+
+<div class="c">
+  <div class="ct"><span class="d" style="background:var(--accent)"></span>选书原则（两份报告共识）</div>
+  <div class="co co-b" style="margin:0"><strong>1条主线 + 1条辅助 + 1条兴趣</strong>
+  主线 → 孩子最喜欢的那套<br>辅助 → 低压巩固<br>兴趣 → 动物/汽车/搞笑</div>
+</div>
+
+<div class="c">
+  <div class="ct"><span class="d" style="background:var(--emerald)"></span>每本书怎么读（4遍法）</div>
+  <table>
+    <thead><tr><th>遍数</th><th>方法</th></tr></thead>
+    <tbody>
+      <tr><td><span class="b b-b">第1遍</span></td><td>家长读，孩子只看图、猜意思</td></tr>
+      <tr><td><span class="b b-g">第2遍</span></td><td>停下来让孩子补最后一个词，或一起说重复句</td></tr>
+      <tr><td><span class="b b-v">第3遍</span></td><td>把书里的动物、车、动作拿到生活里玩出来</td></tr>
+      <tr><td><span class="b b-y">第4遍+</span></td><td>孩子还愿意就反复读；明显无感就立刻换书</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="c">
+  <div class="ct"><span class="d" style="background:var(--amber)"></span>判断书选对没有</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div class="co co-g" style="margin:0"><strong>✅ 对的状态</strong>孩子会主动翻<br>能预测下一页<br>愿意模仿句子<br>会把角色带到生活里</div>
+    <div class="co co-y" style="margin:0;border-color:var(--rose)"><strong>❌ 不对的状态</strong>孩子只是在配合你<br>读完没反应<br>不会主动提<br>每次都要你催</div>
+  </div>
+</div>
+</section>
+
+</div><!-- end tab-research -->
+
+<!-- ================================================================ -->
+<!-- TAB 2: 安安规划 -->
+<!-- ================================================================ -->
+<div class="tab-content" id="tab-plan">
+
+<div class="sub-nav"><div class="sub-nav-inner">
+  <a href="#p-status">现状</a><a href="#p-ort">牛津树</a><a href="#p-anime">动画</a><a href="#p-stages">执行方案</a><a href="#p-tl">时间线</a><a href="#p-roles">分工</a><a href="#p-action">立即行动</a>
+</div></div>
+
+<!-- 现状 -->
+<section id="p-status">
+<div class="sh"><h2><span class="ico" style="background:var(--violet-bg);color:var(--violet)">📊</span>安安在庆爸体系的位置</h2></div>
+
+<div class="c">
+  <div class="ct"><span class="d" style="background:var(--emerald)"></span>已完成的阶段一素材（覆盖70%+）</div>
+  <table><thead><tr><th>项目</th><th>状态</th><th>备注</th></tr></thead><tbody>
+    <tr><td>古力小超人1-2</td><td><span class="b b-g">✅ 已完成</span></td><td>庆爸阶段一核心素材</td></tr>
+    <tr><td>Q play / W play</td><td><span class="b b-g">✅ 多遍</span></td><td>庆爸阶段一核心素材</td></tr>
+    <tr><td>Fluppy Cat / E&P</td><td><span class="b b-g">✅ 已读</span></td><td>故事性绘本基础</td></tr>
+    <tr><td>26个字母</td><td><span class="b b-g">✅ 已掌握</span></td><td>超前于庆爸要求</td></tr>
+    <tr><td>海尼曼GK</td><td><span class="b b-y">⚠️ 读一半</span></td><td>兴趣不大 → 降为辅助</td></tr>
+    <tr><td>FLR A→B</td><td><span class="b b-g">✅ 感兴趣</span></td><td>继续作为练习线</td></tr>
+    <tr><td>听力词汇</td><td><span class="b b-b">约200个</span></td><td>颜色/数字/动物/车/文具</td></tr>
+  </tbody></table>
+  <div class="prog" style="margin-top:14px"><div class="prog-fill" style="width:70%">70% — 阶段一即将完成</div></div>
+</div>
+
+<div class="c">
+  <div class="ct"><span class="d" style="background:var(--accent)"></span>动画输入现状</div>
+  <table><thead><tr><th>动画</th><th>状态</th><th>分析</th></tr></thead><tbody>
+    <tr><td>迪士尼美语</td><td><span class="b b-g">✅ 在看</span></td><td>有体系，偏被动</td></tr>
+    <tr><td>Little Fox</td><td><span class="b b-y">⚠️ 不太喜欢</span></td><td>级别选高了→降Level 1</td></tr>
+    <tr><td>Wow English</td><td><span class="b b-g">✅ 在看</span></td><td>庆爸推荐TPR教学</td></tr>
+    <tr><td>动物世界大冒险</td><td><span class="b b-g">✅ 在看</span></td><td>结合动物兴趣</td></tr>
+    <tr><td>Maisy动画</td><td><span class="b b-b">有资源未开</span></td><td>📌 可以开了！</td></tr>
+    <tr><td>蓝色小考拉</td><td><span class="b b-b">有资源未开</span></td><td>📌 试试看</td></tr>
+  </tbody></table>
+  <div class="co co-y" style="margin-top:10px"><strong>修正判断</strong>动画不是缺失，是缺少分层管理。每天1小时量够了，需要从易到难引导。</div>
+</div>
+</section>
+
+<!-- 牛津树 -->
+<section id="p-ort">
+<div class="sh"><h2><span class="ico" style="background:var(--amber-bg);color:var(--amber)">🌳</span>牛津树购买指南</h2><p>推荐版本：校园版 · 彩虹花Plus</p></div>
+
+<div class="c">
+  <div class="ct"><span class="d" style="background:var(--amber)"></span>为什么选彩虹花Plus</div>
+  <table><thead><tr><th>维度</th><th>说明</th></tr></thead><tbody>
+    <tr><td>点读笔</td><td>✅ 小蝌蚪🐸 + 小达人 + 毛毛虫🐛</td></tr>
+    <tr><td>内容</td><td>校园版完整 · 150本（L1-L2）</td></tr>
+    <tr><td>音频</td><td>英音/美音双切换 · 点页码有中文翻译</td></tr>
+    <tr><td>性价比</td><td>祖国版中品质最好</td></tr>
+  </tbody></table>
+  <div class="co co-b" style="margin-top:12px"><strong>🔍 搜索</strong>「牛津树 校园版 彩虹花plus 1-2阶 150册 小蝌蚪点读」<br><strong>💰 参考价</strong> 淘宝100-150元 · 京东120-160元 · 拼多多80-120元<br><strong>⚠️</strong> 确认是Plus或S版 · 确认支持小蝌蚪 · 有味退货</div>
+</div>
+
+<div class="c">
+  <div class="ct"><span class="d" style="background:var(--accent)"></span>150本怎么读</div>
+  <table><thead><tr><th>阶段</th><th>本数</th><th>安安怎么读</th></tr></thead><tbody>
+    <tr><td>L1 无字书</td><td>12本</td><td>跳过或快速过</td></tr>
+    <tr><td><strong>L1 有字书</strong></td><td>48本</td><td><span class="b b-g">从这里开始！</span>每天2-3本</td></tr>
+    <tr><td>L1+ 故事</td><td>36本</td><td>L1读顺后进入</td></tr>
+    <tr><td>L2</td><td>54本</td><td>目标3个月后</td></tr>
+    <tr><td>自然拼读</td><td>穿插</td><td>半年后启动</td></tr>
+  </tbody></table>
+</div>
+</section>
+
+<!-- 动画 -->
+<section id="p-anime">
+<div class="sh"><h2><span class="ico" style="background:#dbeafe;color:#1d4ed8">📺</span>动画分层方案</h2></div>
+
+<div class="c">
+  <div class="ct"><span class="d" style="background:var(--accent)"></span>5层策略</div>
+  <div class="ly">
+    <div class="lr"><span class="lr-t" style="color:#10b981">A层</span><span>Wow English · Yakka Dee</span><span class="b b-g">懂80%+</span><span>主力</span></div>
+    <div class="lr"><span class="lr-t" style="color:#3b82f6">B层</span><span>动物世界 · 迪士尼美语</span><span class="b b-b">懂50-70%</span><span>继续</span></div>
+    <div class="lr"><span class="lr-t" style="color:#f59e0b">C层</span><span>Maisy · 蓝色小考拉</span><span class="b b-y">懂30-50%</span><span>📌 开启</span></div>
+    <div class="lr"><span class="lr-t" style="color:#ef4444">D层</span><span>Little Fox Level 1</span><span class="b b-r">懂&lt;30%</span><span>降级</span></div>
+    <div class="lr"><span class="lr-t" style="color:#8b5cf6">E层</span><span>Blippi（交通工具）</span><span class="b b-v">兴趣</span><span>周末</span></div>
+  </div>
+  <div class="co co-g" style="margin-top:14px"><strong>📺 每天1小时，有结构</strong>
+  前15分 → A层（Wow English 2-3集）<br>中30分 → B/C层（安安自选）<br>后15分 → 自由选择</div>
+</div>
+</section>
+
+<!-- 执行方案 -->
+<section id="p-stages">
+<div class="sh"><h2><span class="ico" style="background:var(--emerald-bg);color:var(--emerald)">🗺️</span>分阶段执行方案</h2></div>
+
+<!-- A -->
+<div class="tl"><div class="tn now"><div class="tn-l">📍 阶段A：补缺口+过渡（现在→+2月）</div><div class="tn-s">3岁4个月 · 200→350词</div></div></div>
+
+<div class="c">
+  <div class="ct"><span class="d" style="background:var(--accent)"></span>每日时间表</div>
+  <div class="sc">
+    <div class="sr"><span class="sr-t">🌅 早餐</span><span>牛津树L1音频背景播</span><span class="sr-d">10min</span></div>
+    <div class="sr"><span class="sr-t">☀️ 碎片</span><span>SSS儿歌/迪士尼音频</span><span class="sr-d">随时</span></div>
+    <div class="sr"><span class="sr-t">📺 动画</span><span>A层15min+B/C层30min+自由15min</span><span class="sr-d">60min</span></div>
+    <div class="sr"><span class="sr-t">🌙 亲子</span><span>爸爸带读牛津树L1(2本)+FLR(2本)</span><span class="sr-d">20min</span></div>
+    <div class="sr"><span class="sr-t">😴 睡前</span><span>点读笔自主/爸爸讲故事</span><span class="sr-d">10min</span></div>
+  </div>
+</div>
+<div class="c">
+  <div class="ct"><span class="d" style="background:var(--emerald)"></span>分级 + 绘本</div>
+  <table><thead><tr><th>线路</th><th>素材</th><th>操作</th></tr></thead><tbody>
+    <tr><td><span class="b b-g">主线</span></td><td><strong>牛津树L1有字书</strong></td><td>每天2新+2复习</td></tr>
+    <tr><td><span class="b b-b">辅线</span></td><td><strong>FLR B→C</strong></td><td>每天1-2本</td></tr>
+    <tr><td><span class="b b-y">降权</span></td><td>海尼曼GK</td><td>每周挑3本</td></tr>
+  </tbody></table>
+  <p style="font-size:13px;color:var(--text2);margin-top:10px"><strong>绘本：</strong>Pete the Cat(🐛) · Biscuit(🐸) · Little Blue Truck · E&P扩展(🐸)</p>
+</div>
+<div class="c">
+  <div class="ct"><span class="d" style="background:var(--amber)"></span>💰 购书</div>
+  <div class="sp">
+    <div class="spr"><span class="spr-n">牛津树彩虹花Plus L1-L2 (150本)</span><span class="spr-p"><a href="https://search.jd.com/Search?keyword=牛津树校园版彩虹花plus+1-2阶" target="_blank" style="color:var(--accent)">京东</a> · <a href="https://s.taobao.com/search?q=牛津树校园版彩虹花plus+小蝌蚪点读" target="_blank" style="color:var(--accent)">淘宝</a> 100-150元 <span class="b b-v">🐸🐛</span></span></div>
+    <div class="spr"><span class="spr-n">FLR C</span><span class="spr-p"><a href="https://search.jd.com/Search?keyword=First+Little+Readers+C" target="_blank" style="color:var(--accent)">京东</a> · <a href="https://s.taobao.com/search?q=First+Little+Readers+Level+C" target="_blank" style="color:var(--accent)">淘宝</a> 40-60元 <span class="b b-v">🐸</span></span></div>
+    <div class="spr"><span class="spr-n">Pete the Cat I Can Read (6册)</span><span class="spr-p"><a href="https://search.jd.com/Search?keyword=Pete+the+Cat+I+Can+Read" target="_blank" style="color:var(--accent)">京东</a> · <a href="https://s.taobao.com/search?q=皮特猫+Pete+the+Cat+I+Can+Read" target="_blank" style="color:var(--accent)">淘宝</a> 50-80元 <span class="b b-v">🐛</span></span></div>
+    <div class="spr"><span class="spr-n">Biscuit My First I Can Read (6册)</span><span class="spr-p"><a href="https://search.jd.com/Search?keyword=Biscuit+My+First+I+Can+Read" target="_blank" style="color:var(--accent)">京东</a> · <a href="https://s.taobao.com/search?q=Biscuit+饼干狗+I+Can+Read" target="_blank" style="color:var(--accent)">淘宝</a> 50-70元 <span class="b b-v">🐸</span></span></div>
+    <div class="spr"><span class="spr-n">Little Blue Truck</span><span class="spr-p"><a href="https://search.jd.com/Search?keyword=Little+Blue+Truck+英文" target="_blank" style="color:var(--accent)">京东</a> · <a href="https://s.taobao.com/search?q=Little+Blue+Truck+英文" target="_blank" style="color:var(--accent)">淘宝</a> 25-35元</span></div>
+  </div>
+  <div class="sp-total">预算：265 - 395 元</div>
+</div>
+
+<!-- B -->
+<div class="tl" style="margin-top:24px"><div class="tn"><div class="tn-l">阶段B：正式阶段二（+2月→+5月）</div><div class="tn-s">3岁半 · 350→600词</div></div></div>
+<div class="c">
+  <div class="ct"><span class="d" style="background:var(--emerald)"></span>分级 + 绘本 + 科普</div>
+  <table><thead><tr><th>书</th><th>点读</th><th>类型</th><th>购买</th></tr></thead><tbody>
+    <tr><td><strong>牛津树L1+→L2</strong></td><td><span class="b b-v">🐸🐛</span></td><td>主线</td><td><a href="https://search.jd.com/Search?keyword=牛津树校园版彩虹花plus" target="_blank" style="color:var(--accent);font-size:12px">京东</a></td></tr>
+    <tr><td><strong>FLR D + Buddy Readers</strong></td><td><span class="b b-v">🐸</span></td><td>辅线</td><td><a href="https://search.jd.com/Search?keyword=First+Little+Readers+D" target="_blank" style="color:var(--accent);font-size:12px">FLR</a> · <a href="https://search.jd.com/Search?keyword=Buddy+Readers+学乐" target="_blank" style="color:var(--accent);font-size:12px">Buddy</a></td></tr>
+    <tr><td>E&P补齐25册 · Fly Guy前5本</td><td><span class="b b-v">🐸</span></td><td>故事</td><td><a href="https://search.jd.com/Search?keyword=Elephant+and+Piggie+小猪小象" target="_blank" style="color:var(--accent);font-size:12px">E&P</a> · <a href="https://search.jd.com/Search?keyword=Fly+Guy+苍蝇小子+点读" target="_blank" style="color:var(--accent);font-size:12px">Fly Guy</a></td></tr>
+    <tr><td>恐龙工程车 · Car Car Truck Jeep · Truck Town</td><td><span class="b b-v">🐛</span></td><td>🚗 车</td><td><a href="https://search.jd.com/Search?keyword=恐龙工程车+毛毛虫点读" target="_blank" style="color:var(--accent);font-size:12px">恐龙</a> · <a href="https://search.jd.com/Search?keyword=Car+Car+Truck+Jeep+毛毛虫" target="_blank" style="color:var(--accent);font-size:12px">CCTJ</a></td></tr>
+    <tr><td>Pigeon · Splat the Cat</td><td>—</td><td>故事</td><td><a href="https://search.jd.com/Search?keyword=Don't+Let+the+Pigeon+Mo+Willems" target="_blank" style="color:var(--accent);font-size:12px">Pigeon</a> · <a href="https://search.jd.com/Search?keyword=Splat+the+Cat+英文" target="_blank" style="color:var(--accent);font-size:12px">Splat</a></td></tr>
+    <tr><td>NGK Trucks+Animals · Usborne Peep Inside</td><td>—</td><td>🔬 科普</td><td><a href="https://search.jd.com/Search?keyword=National+Geographic+Kids+Readers+Pre" target="_blank" style="color:var(--accent);font-size:12px">NGK</a> · <a href="https://search.jd.com/Search?keyword=Usborne+Peep+Inside+Things+That+Go" target="_blank" style="color:var(--accent);font-size:12px">Usborne</a></td></tr>
+  </tbody></table>
+  <div class="sp-total">预算：400 - 600 元</div>
+</div>
+
+<!-- C -->
+<div class="tl" style="margin-top:24px"><div class="tn"><div class="tn-l">阶段C：阶段三突破（+5月→+10月）</div><div class="tn-s">3岁9个月 · 600→1000词</div></div></div>
+<div class="c">
+  <table><thead><tr><th>类别</th><th>素材</th><th>购买</th></tr></thead><tbody>
+    <tr><td>分级</td><td>牛津树Stage 3→4 + RAZ C-E正式加入</td><td><a href="https://search.jd.com/Search?keyword=牛津树校园版彩虹花plus+3-5阶" target="_blank" style="color:var(--accent);font-size:12px">牛津树</a> · <a href="https://search.jd.com/Search?keyword=RAZ+蓝标+C-E" target="_blank" style="color:var(--accent);font-size:12px">RAZ</a></td></tr>
+    <tr><td>桥梁书</td><td>Fly Guy全🐸 · Frog and Toad · Gruffalo🐛 · Mercy Watson</td><td><a href="https://search.jd.com/Search?keyword=Fly+Guy+苍蝇小子+全套+点读" target="_blank" style="color:var(--accent);font-size:12px">Fly Guy</a> · <a href="https://search.jd.com/Search?keyword=Frog+and+Toad+青蛙+蟾蜍" target="_blank" style="color:var(--accent);font-size:12px">F&T</a> · <a href="https://search.jd.com/Search?keyword=The+Gruffalo+咕噜牛" target="_blank" style="color:var(--accent);font-size:12px">咕噜牛</a></td></tr>
+    <tr><td>拼读</td><td>Floppy's Phonics · Bob Books · Alphablocks动画</td><td><a href="https://search.jd.com/Search?keyword=Bob+Books+Set+1" target="_blank" style="color:var(--accent);font-size:12px">Bob Books</a></td></tr>
+    <tr><td>动画</td><td>Peppa Pig全季 · Bluey · Little Fox L1-2</td><td>—</td></tr>
+  </tbody></table>
+  <div class="sp-total">预算：315 - 475 元</div>
+</div>
+
+<!-- D -->
+<div class="tl" style="margin-top:24px"><div class="tn"><div class="tn-l">🔥 阶段D：大循环启动（+10月+）</div><div class="tn-s">4岁2个月 · 1000→1500+词</div></div></div>
+<div class="c">
+  <table><thead><tr><th>条件</th><th>要求</th><th>预计</th></tr></thead><tbody>
+    <tr><td>年龄</td><td>4.5岁+</td><td>约14个月后</td></tr>
+    <tr><td>词汇</td><td>1000+</td><td>常规路线可达</td></tr>
+    <tr><td>牛津树</td><td>Stage 3-4</td><td>阶段C目标</td></tr>
+  </tbody></table>
+  <div class="co co-v" style="margin-top:12px"><strong>大循环操作</strong>
+  爸爸每天1小时亲子共读牛津树<br>① 读英文（指图）→ ② 简单解释 → ③ 放音频自翻 → ④ 次日先复习<br>
+  <strong>"循环"</strong> 每读完一阶段→横向读RAZ/大猫/培生→读透再升<br><strong>目标</strong> 6-12月推到Stage 6-7→裸听训练</div>
+</div>
+</section>
+
+<!-- 时间线 -->
+<section id="p-tl">
+<div class="sh"><h2><span class="ico" style="background:var(--amber-bg);color:var(--amber)">📅</span>完整时间线</h2></div>
+<div class="c" style="overflow-x:auto">
+  <table><thead><tr><th>时间</th><th>阶段</th><th>年龄</th><th>词汇</th><th>分级</th><th>动画</th><th>关键动作</th></tr></thead><tbody>
+    <tr style="background:var(--accent-bg)"><td><strong>现在</strong></td><td>A</td><td>3岁4月</td><td>200→350</td><td>牛津树L1+FLR</td><td>Wow English</td><td><strong>买牛津树！分层动画</strong></td></tr>
+    <tr><td>+2月</td><td>B</td><td>3岁半</td><td>350→600</td><td>牛津树L1+-L2</td><td>Peppa Pig</td><td>Buddy Readers+科普</td></tr>
+    <tr><td>+5月</td><td>C</td><td>3岁9月</td><td>600→1000</td><td>牛津树L3-4+RAZ</td><td>Bluey</td><td>拼读+桥梁书</td></tr>
+    <tr><td>+10月</td><td>D</td><td>4岁2月</td><td>1000→1500</td><td>牛津树L4-7</td><td>Little Fox</td><td><strong>大循环启动！</strong></td></tr>
+    <tr><td>+1.5年</td><td>—</td><td>4岁10月</td><td>1500+</td><td>牛津树L7++RAZ J+</td><td>纪录片</td><td>听力自由</td></tr>
+  </tbody></table>
+</div>
+</section>
+
+<!-- 分工 -->
+<section id="p-roles">
+<div class="sh"><h2><span class="ico" style="background:#f3e8ff;color:#7c3aed">👨‍👩‍👦</span>爸爸妈妈分工</h2></div>
+<div class="c">
+  <div class="ct"><span class="d" style="background:var(--accent)"></span>👨 爸爸</div>
+  <table><thead><tr><th>阶段</th><th>做什么</th><th>游戏</th></tr></thead><tbody>
+    <tr><td>A</td><td>带读牛津树2本+FLR 2本</td><td>模仿Steve做TPR</td></tr>
+    <tr><td>B</td><td>牛津树L1+/L2每天2本</td><td>"我是Kipper你是Floppy"</td></tr>
+    <tr><td>C</td><td>牛津树L3-4+简单英文对话</td><td>看完Peppa在家重演</td></tr>
+    <tr><td>D</td><td>大循环：每天1小时共读</td><td>"What happens next?"</td></tr>
+  </tbody></table>
+</div>
+<div class="c">
+  <div class="ct"><span class="d" style="background:var(--rose)"></span>👩 妈妈</div>
+  <table><thead><tr><th>任务</th><th>操作</th><th>频率</th></tr></thead><tbody>
+    <tr><td>选书采购</td><td>按阶段清单购买</td><td>每2-3月</td></tr>
+    <tr><td>动画分层</td><td>A/B/C层按文件夹分好</td><td>一次性</td></tr>
+    <tr><td>音频列表</td><td>排好播放顺序</td><td>每月</td></tr>
+    <tr><td>进度监控</td><td>和爸爸确认进度</td><td>每两周</td></tr>
+    <tr><td>点读笔</td><td>装好点读包</td><td>买书时</td></tr>
+  </tbody></table>
+</div>
+</section>
+
+<!-- 行动 -->
+<section id="p-action">
+<div class="sh"><h2><span class="ico" style="background:#dcfce7;color:#16a34a">🚀</span>现在就做三件事</h2></div>
+<div class="steps">
+  <div class="step"><div class="step-n">1</div><div class="step-b"><strong>买牛津树彩虹花Plus L1-L2（150本）</strong><span>淘宝搜「牛津树 校园版 彩虹花plus 1-2阶 小蝌蚪点读」约100-150元</span></div></div>
+  <div class="step"><div class="step-n">2</div><div class="step-b"><strong>动画从"随便看"改为"分层看"</strong><span>前15分钟固定看Wow English · 其余安安自选</span></div></div>
+  <div class="step"><div class="step-n">3</div><div class="step-b"><strong>开启Maisy和蓝色小考拉</strong><span>这周就放1集Maisy试试 · 安安其实看得懂</span></div></div>
+</div>
+<div class="ban ban-g" style="margin-top:20px">你不需要推翻重来 · 安安的基础非常好<br>古力小超人 / Q play / W play 正是庆爸阶段一的核心素材</div>
+</section>
+
+</div><!-- end tab-plan -->
+
+</div><!-- end main -->
+
+<script>
+// Tab switching
+const tabs=document.querySelectorAll('.top-tab');
+const contents=document.querySelectorAll('.tab-content');
+tabs.forEach(t=>t.addEventListener('click',()=>{
+  tabs.forEach(x=>x.classList.remove('active'));
+  contents.forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  document.getElementById('tab-'+t.dataset.tab).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}));
+</script>
+</body>
+</html>
